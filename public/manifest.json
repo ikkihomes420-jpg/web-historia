@@ -1,7 +1,7 @@
 {
-  "name": "Open Historia",
-  "short_name": "Open Historia",
-  "description": "An open source alternative to Pax Historia.",
+  "name": "Web Historia",
+  "short_name": "Web Historia",
+  "description": "Web Historia — a free, open-source, AI-driven alternate-history strategy game that runs entirely in your browser.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0b1020",

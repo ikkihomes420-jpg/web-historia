@@ -1,6 +1,6 @@
-# Web Build (openhistoria.com)
+# Web Build (Web Historia)
 
-The web build is the browser-only edition of Open Historia served from the trusted central origin (openhistoria.com / the `/play/` site). It runs the **entire game client unchanged** with **zero server**: a `window.fetch` interceptor answers every same-origin `/api/*` call out of IndexedDB, heavy map tiles stream from a Cloudflare Worker proxy (or a hash-verified community node swarm), and optional magic-link/Google accounts sync your games as client-side-encrypted blobs. Everything in this page lives under `src/runtime/web/` and ships **only** in the web build — it is dynamically imported behind `import.meta.env.VITE_OH_WEB` so it is dead-code-eliminated from the local desktop/APK download, which keeps its real same-origin Express server.
+The web build is the browser-only edition of Web Historia (a fork of Open Historia) served from the trusted central origin (web-historia.pages.dev / the `/play/` site). It runs the **entire game client unchanged** with **zero server**: a `window.fetch` interceptor answers every same-origin `/api/*` call out of IndexedDB, and heavy map tiles stream from a Cloudflare Worker proxy (or a hash-verified community node swarm). Everything in this page lives under `src/runtime/web/` and ships **only** in the web build — it is dynamically imported behind `import.meta.env.VITE_OH_WEB`. The desktop/APK variants were stripped from this fork; the web build is the only target.
 
 See also: [Server build](server-build.md) (the Express store this mirrors), [World state](world-state.md), [Assets & PMTiles](assets.md), [Scenario & game library](library.md), [Community hub](community-hub.md).
 

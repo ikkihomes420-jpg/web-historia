@@ -1,17 +1,17 @@
-# Open Historia — Developer Documentation
+# Web Historia — Developer Documentation
 
-Open Historia is an AI-driven, map-based alternate-history strategy game: players run a world of owned regions on an interactive map and advance it turn-by-turn, with a language model narrating events and applying concrete changes back to the world state. The same codebase ships as three variants from one source tree — a Node/Express server build, a browser-only web build (openhistoria.com), and a Capacitor Android app with an embedded server — gated by the compile-time `VITE_OH_WEB` flag. These docs are organized by subsystem: the map and in-game UI, the world/turn model, the AI pipeline, the standalone map editor, the backend and data layers, the web/mobile targets, and the delivery/release topology. Every page is a standalone reference; this index groups them and links each with a one-line summary.
+Web Historia is an AI-driven, map-based alternate-history strategy game: players run a world of owned regions on an interactive map and advance it turn-by-turn, with a language model narrating events and applying concrete changes back to the world state. It is a browser-first fork of the open-source **Open Historia** codebase (AGPL-3.0-or-later): the desktop and Android variants were stripped out, leaving a single pure-web build (IndexedDB backend, no server) gated by the `VITE_OH_WEB` flag, with AI routing moved to OpenRouter. These docs are organized by subsystem: the map and in-game UI, the world/turn model, the AI pipeline, the standalone map editor, the backend and data layers, the web target, and the delivery/release topology. Every page is a standalone reference; this index groups them and links each with a one-line summary.
 
 ## Start here
 
-New to the codebase? Read **[Architecture Overview](architecture.md)** first — it covers the tech stack, the three build variants and the `VITE_OH_WEB` flag, the boot sequence, the directory map, and the frontend↔`/api`↔storage data flow that every other page builds on. From there, follow the group that matches what you're working on.
+New to the codebase? Read **[Architecture Overview](architecture.md)** first — it covers the tech stack, the web-only build variant and the `VITE_OH_WEB` flag, the boot sequence, the directory map, and the frontend↔`/api`↔storage data flow that every other page builds on. From there, follow the group that matches what you're working on.
 
 > **Editing AI prompts?** The **[Prompt-Making Guide](ai-prompts.md)** is the canonical reference — every placeholder/variable, all 13 tasks plus the advisor/leader roots, end-to-end prompt assembly, the override/frozen-prompt model, and recipes for adding a variable or a task. Start there before touching any prompt text.
 
 ## Contents
 
 ### Getting Started
-- [Architecture Overview](architecture.md) — Tech stack, the three build variants and the `VITE_OH_WEB` flag, boot sequence, directory map, and the frontend↔`/api`↔storage data flow.
+- [Architecture Overview](architecture.md) — Tech stack, the web-only build variant and the `VITE_OH_WEB` flag, boot sequence, directory map, and the frontend↔`/api`↔storage data flow.
 - [Contributing & Conventions](conventions.md) — Repo/remote layout, release-channel workflow, PR-only process, commit/attribution and comment style, local dev, `node --test`, and frozen identifiers.
 
 ### Game
@@ -33,7 +33,7 @@ New to the codebase? Read **[Architecture Overview](architecture.md)** first —
 - [Runtime Services](runtime-services.md) — Library/scenario/game stores, the country-name resolver, i18n/translator, and tags/labels/community-flags/map-settings services.
 
 ### Web & Mobile
-- [Web Build (openhistoria.com)](web-build.md) — The browser-only `VITE_OH_WEB` build: fetch-interceptor fake backend, IndexedDB stores, PMTiles Worker-proxy/content-node trust chain, magic-link/Google accounts + E2E sync.
+- [Web Build (Web Historia)](web-build.md) — The browser-only `VITE_OH_WEB` build: fetch-interceptor fake backend, IndexedDB stores, PMTiles Worker-proxy/content-node trust chain, magic-link/Google accounts + E2E sync.
 - [Android App (Embedded Server)](mobile.md) — The Capacitor + nodejs-mobile Android app: boot shell, first-run map fetch, self-update, the `android` release channel, and build pipeline.
 
 ### Delivery

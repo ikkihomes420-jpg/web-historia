@@ -1,8 +1,9 @@
 # Deploying the playable game website (web mode)
 
-This is the browser-playable Open Historia — the "play on a website" build. It's a
-static app (served from a trusted origin) that keeps games client-side, sends AI keys
-straight to the player's provider, and loads map data from the content-node network.
+This is the Web Historia web app — a browser-only build forked from Open Historia.
+It's a static app (served from a trusted origin) that keeps games client-side, sends
+AI keys straight to the player's provider (OpenRouter), and loads map data from the
+content-node network.
 
 **Chosen setup:** app on **Cloudflare Pages**; map data from **content nodes only**
 (no origin fallback — the map loads once at least one node in the signed directory is

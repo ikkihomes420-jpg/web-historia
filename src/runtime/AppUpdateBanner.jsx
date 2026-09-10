@@ -284,7 +284,7 @@ export default function AppUpdateBanner() {
   return (
     <div style={bar} role="status" aria-live="polite">
       <div style={text}>
-        A new version of Open Historia is ready.
+        A new version of Web Historia is ready.
         <span style={sub}>
           {desktop
             ? desktopStatus()

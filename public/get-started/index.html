@@ -14,24 +14,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b1020" />
   <link rel="icon" type="image/jpeg" href="/logo.png" />
-  <title>Get Started with Open Historia — Desktop App, Android App, or Browser Demo</title>
-  <link rel="canonical" href="https://openhistoria.com/get-started/" />
-  <meta name="description" content="How to start playing Open Historia, the free open-source AI grand strategy game: download the desktop app for Windows, macOS or Linux, install the Android app, or try the browser demo. Then connect an AI provider and start your first game." />
+  <title>Get Started with Web Historia — Play in Your Browser</title>
+  <link rel="canonical" href="/get-started/" />
+  <meta name="description" content="How to start playing Web Historia, the free open-source AI grand strategy game: open it in your browser, connect an AI provider, and start your first game. Nothing to download." />
 
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Open Historia" />
-  <meta property="og:url" content="https://openhistoria.com/get-started/" />
-  <meta property="og:title" content="Get Started with Open Historia — Desktop App, Android App, or Browser Demo" />
-  <meta property="og:description" content="Download the desktop app, install the Android app, or try the browser demo. Connect an AI provider and start your first game of the free open-source grand strategy game." />
-  <meta property="og:image" content="https://raw.githubusercontent.com/Open-Historia/open-historia/main/public/loading_screen.jpg" />
+  <meta property="og:site_name" content="Web Historia" />
+  <meta property="og:url" content="/get-started/" />
+  <meta property="og:title" content="Get Started with Web Historia — Play in Your Browser" />
+  <meta property="og:description" content="Open Web Historia in your browser, connect an AI provider, and start your first game of the free open-source AI grand strategy game. Nothing to download." />
+  <meta property="og:image" content="https://raw.githubusercontent.com/ikkihomes420-jpg/web-historia/main/public/loading_screen.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="720" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Get Started with Open Historia — Desktop App, Android App, or Browser Demo" />
-  <meta name="twitter:description" content="Download the desktop app, install the Android app, or try the browser demo. Connect an AI provider and start your first game." />
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/Open-Historia/open-historia/main/public/loading_screen.jpg" />
+  <meta name="twitter:title" content="Get Started with Web Historia — Play in Your Browser" />
+  <meta name="twitter:description" content="Open Web Historia in your browser, connect an AI provider, and start your first game. Nothing to download." />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/ikkihomes420-jpg/web-historia/main/public/loading_screen.jpg" />
 
   <link rel="stylesheet" href="/guides.css" />
 
@@ -39,20 +39,20 @@
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Start Playing Open Historia",
-    "description": "Step-by-step guide to get started with Open Historia, the free open-source AI grand strategy game: get the game, connect an AI provider, and start your first game.",
+    "name": "How to Start Playing Web Historia",
+    "description": "Step-by-step guide to get started with Web Historia, the free open-source AI grand strategy game: open the game, connect an AI provider, and start your first game.",
     "step": [
       {
         "@type": "HowToStep",
         "position": "1",
-        "name": "Get the game",
-        "text": "Download the desktop app for Windows, macOS or Linux from the GitHub releases (recommended), install the Android app, or try the browser demo at openhistoria.com."
+        "name": "Open the game",
+        "text": "Open Web Historia in your browser and press Play. There is nothing to install — games, saves, and scenarios live in your browser."
       },
       {
         "@type": "HowToStep",
         "position": "2",
         "name": "Connect an AI provider",
-        "text": "Open a game, open Settings and choose an AI provider under AI. Gemini is the default; a Google AI Studio key is enough to start."
+        "text": "Open Settings and paste an OpenRouter API key (recommended), or choose any other supported provider. Leave the model blank to use OpenRouter's recommended auto-router."
       },
       {
         "@type": "HowToStep",
@@ -77,14 +77,14 @@
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Open Historia",
-        "item": "https://openhistoria.com/"
+        "name": "Web Historia",
+        "item": "/"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Get Started",
-        "item": "https://openhistoria.com/get-started/"
+        "item": "/get-started/"
       }
     ]
   }
@@ -93,44 +93,26 @@
 <body>
   <div class="page">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <a href="/">Open Historia</a> <span aria-hidden="true">/</span> Get Started
+      <a href="/">Web Historia</a> <span aria-hidden="true">/</span> Get Started
     </nav>
 
-    <img class="logo" src="/logo.png" alt="Open Historia logo" width="64" height="64" />
+    <img class="logo" src="/logo.png" alt="Web Historia logo" width="64" height="64" />
 
-    <h1>Get Started with Open Historia</h1>
-    <p class="tagline">Free and open source. The game runs on your own machine, with an AI provider you choose — here is how to get it running and play your first game.</p>
+    <h1>Get Started with Web Historia</h1>
+    <p class="tagline">Free and open source. The game runs entirely in your browser, with an AI provider you choose — here is how to get playing in a few minutes.</p>
 
-    <h2>Three Ways to Play</h2>
+    <h2>Play in Your Browser</h2>
 
     <div class="step">
-      <strong>Desktop app — recommended</strong>
-      <p>The desktop app is how the game is meant to be played: the world map is served from your own machine, so it is fast and works offline. Get it from the <a href="https://github.com/Open-Historia/open-historia/releases/tag/desktop-stable" target="_blank" rel="noopener">desktop release</a>:</p>
-      <ul>
-        <li><strong>Windows 10 &amp; 11:</strong> run <code>Open-Historia-Setup.exe</code>. If SmartScreen warns, choose <em>More info → Run anyway</em> — the installer is not code-signed yet.</li>
-        <li><strong>macOS:</strong> download the Apple Silicon or Intel zip, unzip, and drag <strong>Open Historia</strong> to Applications. The first time, right-click it and choose <em>Open</em>.</li>
-        <li><strong>Linux:</strong> install the <code>.deb</code> on Debian, Ubuntu and derivatives, or make the AppImage executable and run it.</li>
-      </ul>
-      <p>Nothing else needs installing. On first launch the app downloads the world map data once (about 275 MB, with a progress bar). Your games and scenarios are saved on your computer.</p>
+      <strong>Nothing to install</strong>
+      <p>Press <strong>Play</strong> and Web Historia loads right in your tab. There is no desktop app and no download — the world map streams from the community content-node network, verified byte-for-byte by checksum, and your games and scenarios are saved in your browser.</p>
+      <p>Signing in is optional; it syncs your games and scenarios between devices, encrypted before they leave your browser. Your AI key goes straight from your browser to your provider — never through a Web Historia server.</p>
     </div>
 
     <div class="step">
-      <strong>In your browser — a demo</strong>
-      <p>Press <strong>Play</strong> on <a href="/">openhistoria.com</a> to try the game without installing anything. The browser version streams every map tile from the community content-node network, so expect noticeable lag when panning and zooming — it is there to try the game, not the best way to play it.</p>
-      <p>Your games are saved in that browser, on that device. Signing in with Google is optional; it syncs your games and scenarios between devices, encrypted before they leave your browser. Your AI key goes straight from your browser to your provider.</p>
-    </div>
-
-    <div class="step">
-      <strong>Android</strong>
-      <p>Download <code>open-historia.apk</code> from the <a href="https://github.com/Open-Historia/open-historia/releases/tag/android" target="_blank" rel="noopener">Android release</a> and open it to install (allow installs from your browser when Android asks). It is the browser version packaged as an app: it connects to a content node on its own and streams the world map from there, and your games are saved on the phone. There is no server to run and nothing to point it at.</p>
-    </div>
-
-    <p>Prefer to build from source, or run the server on another machine? See the <a href="/self-hosting/">self-hosting guide</a>.</p>
-
-    <h2>You Need an AI Provider</h2>
-    <div class="card">
-      <p>Open Historia has no scripted simulation: every time skip, every event, every border change and every leader's reply is generated by a language model. <strong>Without a connected AI provider the world cannot advance</strong> — you can look at the map and use the map editor, but not play.</p>
-      <p>Open a game, open <strong>Settings</strong>, and pick a provider under <strong>AI</strong>. Gemini is the default; a free key from <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a> is enough to start. OpenAI, Anthropic, and anything that speaks the OpenAI or Anthropic APIs — including local models through Ollama or LM Studio — work too. The key is stored in the app and sent only to the provider you chose. See the <a href="/ai-setup/">AI setup guide</a> for every option.</p>
+      <strong>Bring your own AI</strong>
+      <p>Web Historia has no scripted simulation: every time skip, every event, every border change and every leader's reply is generated by a language model. <strong>Without a connected AI provider the world cannot advance</strong> — you can look at the map and use the map editor, but not play.</p>
+      <p>Open a game, open <strong>Settings</strong>, and paste an <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">OpenRouter API key</a> (recommended — one key unlocks curated model suggestions; leave the model blank for the auto-router). Gemini, OpenAI, Anthropic, and OpenAI-compatible local models through Ollama or LM Studio work too. The key is stored in your browser and sent only to the provider you chose. See the <a href="/ai-setup/">AI setup guide</a> for every option.</p>
     </div>
 
     <h2>Your First Game</h2>
@@ -142,7 +124,7 @@
 
     <div class="step">
       <strong>Step 2 — New Game</strong>
-      <p>Click <strong>New Game</strong>. <strong>Modern Day</strong> (starting 1 January 2016) is the built-in scenario; others can be imported from the Community tab first. Click the country you want to lead on the picker map, then choose a difficulty from Very Easy to Impossible.</p>
+      <p>Click <strong>New Game</strong>. <strong>Modern Day</strong> (starting 1 January 2016) is the built-in scenario; era presets like <em>World War II — 1939</em> and <em>Medieval — 1200 AD</em> can be imported from the Community tab first. Click the country you want to lead on the picker map, then choose a difficulty from Very Easy to Impossible.</p>
     </div>
 
     <div class="step">
@@ -163,8 +145,8 @@
     <h2>Good to Know</h2>
     <div class="card">
       <ul>
-        <li><strong>Single-player:</strong> you lead one nation and the AI plays the rest. There is no multiplayer lobby. On a self-hosted server other devices on your network can open the same saves — see the <a href="/self-hosting/">self-hosting guide</a>.</li>
-        <li><strong>Saves:</strong> the game saves itself as you play — on your computer in the desktop app, on the phone in the Android app, and in the browser in the demo.</li>
+        <li><strong>Single-player:</strong> you lead one nation and the AI plays the rest. There is no multiplayer lobby.</li>
+        <li><strong>Saves:</strong> the game saves itself as you play, in your browser. Sign in to sync between devices.</li>
         <li><strong>Scenario Hub:</strong> browse and import community scenarios from the Community tab, and publish your own.</li>
         <li><strong>Map editor:</strong> every scenario opens in a full vector map editor — redraw borders, paint owners, place cities, then <em>Apply &amp; Play</em>.</li>
       </ul>
@@ -173,14 +155,14 @@
     <h2>Next Steps</h2>
     <ul>
       <li><a href="/how-to-play/">How to Play — the map, diplomacy, actions, troops, spies, time skips, and the map editor</a></li>
-      <li><a href="/ai-setup/">Connect an AI provider — Gemini, OpenAI, Anthropic, local models, and OpenAI-compatible APIs</a></li>
-      <li><a href="/self-hosting/">Self-Hosting Guide — build from source, play from other devices, run as a service</a></li>
+      <li><a href="/ai-setup/">Connect an AI provider — OpenRouter, Gemini, OpenAI, Anthropic, local models, and OpenAI-compatible APIs</a></li>
+      <li><a href="/self-hosting/">Self-Hosting Guide — build from source and run your own instance</a></li>
     </ul>
 
-    <a href="/" class="cta">Play Open Historia</a>
+    <a href="/" class="cta">Play Web Historia</a>
 
     <footer>
-      <p>Open Historia — free, open-source grand strategy game. <a href="https://github.com/Open-Historia/open-historia" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/QaqAK7fQAg" target="_blank" rel="noopener">Discord</a> · <a href="/sitemap.xml">Sitemap</a></p>
+      <p>Web Historia — free, open-source grand strategy game, built on <a href="https://github.com/Open-Historia/open-historia" target="_blank" rel="noopener">Open Historia</a>. <a href="https://github.com/ikkihomes420-jpg/web-historia" target="_blank" rel="noopener">GitHub</a> · <a href="/sitemap.xml">Sitemap</a></p>
     </footer>
   </div>
 </body>

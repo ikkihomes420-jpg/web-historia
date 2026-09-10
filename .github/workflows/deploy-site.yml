@@ -1,8 +1,9 @@
-# Open Historia — website build & deploy workflow © 2026 Nicholas Krol, AGPL-3.0-or-later (see LICENSE).
+# Web Historia — website build & deploy workflow, forked from Open Historia
+# (© 2026 Nicholas Krol, AGPL-3.0-or-later, see LICENSE).
 name: Deploy website
 
-# Builds openhistoria.com and publishes it on every push to main, so the site is
-# never behind the code. Also runnable on demand from the Actions tab.
+# Builds the Web Historia site and publishes it on every push to main, so the
+# site is never behind the code. Also runnable on demand from the Actions tab.
 #
 # Why an Action rather than connecting Pages to the repo: the Pages project is a
 # direct-upload one, and Cloudflare cannot convert those to Git-connected. Doing
@@ -18,11 +19,10 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    # Docs and the mobile app can't change what the site serves; skip the build
-    # rather than spend minutes rebuilding an identical bundle.
+    # Docs can't change what the site serves; skip the build rather than spend
+    # minutes rebuilding an identical bundle.
     paths-ignore:
       - "**.md"
-      - "mobile/**"
       - ".github/**"
 
 permissions:

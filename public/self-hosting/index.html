@@ -14,14 +14,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b1020" />
   <link rel="icon" type="image/jpeg" href="/logo.png" />
-  <title>Self-Hosting Open Historia — Run the Game Server Yourself</title>
-  <link rel="canonical" href="https://openhistoria.com/self-hosting/" />
-  <meta name="description" content="Run Open Historia's server yourself: build from source, play your saves from other devices on your network, play offline with a local model, the environment variables that control who can reach it, and running it as a service on Linux, Windows, and macOS." />
+  <title>Self-Hosting Web Historia — Run the Game Server Yourself</title>
+  <link rel="canonical" href="/self-hosting/" />
+  <meta name="description" content="Run Web Historia's server yourself: build from source, play your saves from other devices on your network, play offline with a local model, the environment variables that control who can reach it, and running it as a service on Linux, Windows, and macOS." />
 
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Open Historia" />
-  <meta property="og:url" content="https://openhistoria.com/self-hosting/" />
-  <meta property="og:title" content="Self-Hosting Open Historia — Run the Game Server Yourself" />
+  <meta property="og:site_name" content="Web Historia" />
+  <meta property="og:url" content="/self-hosting/" />
+  <meta property="og:title" content="Self-Hosting Web Historia — Run the Game Server Yourself" />
   <meta property="og:description" content="Build from source, play your saves from other devices on your network, play offline with a local model, and run the server as a service." />
   <meta property="og:image" content="https://raw.githubusercontent.com/Open-Historia/open-historia/main/public/loading_screen.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -29,7 +29,7 @@
   <meta property="og:image:height" content="720" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Self-Hosting Open Historia — Run the Game Server Yourself" />
+  <meta name="twitter:title" content="Self-Hosting Web Historia — Run the Game Server Yourself" />
   <meta name="twitter:description" content="Build from source, play your saves from other devices on your network, play offline with a local model, and run the server as a service." />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/Open-Historia/open-historia/main/public/loading_screen.jpg" />
 
@@ -39,8 +39,8 @@
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Self-Host Open Historia",
-    "description": "Step-by-step guide to run the Open Historia game server yourself from source, reach it from other devices on your network, and run it as a service.",
+    "name": "How to Self-Host Web Historia",
+    "description": "Step-by-step guide to run the Web Historia game server yourself from source, reach it from other devices on your network, and run it as a service.",
     "step": [
       {
         "@type": "HowToStep",
@@ -71,14 +71,14 @@
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Open Historia",
-        "item": "https://openhistoria.com/"
+        "name": "Web Historia",
+        "item": "/"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Self-Hosting Guide",
-        "item": "https://openhistoria.com/self-hosting/"
+        "item": "/self-hosting/"
       }
     ]
   }
@@ -87,12 +87,12 @@
 <body>
   <div class="page">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <a href="/">Open Historia</a> <span aria-hidden="true">/</span> Self-Hosting Guide
+      <a href="/">Web Historia</a> <span aria-hidden="true">/</span> Self-Hosting Guide
     </nav>
 
-    <img class="logo" src="/logo.png" alt="Open Historia logo" width="64" height="64" />
+    <img class="logo" src="/logo.png" alt="Web Historia logo" width="64" height="64" />
 
-    <h1>Self-Hosting Open Historia</h1>
+    <h1>Self-Hosting Web Historia</h1>
     <p class="tagline">Run the game server yourself — from source on any machine with Node.js, on your own network, or entirely offline with a local model.</p>
 
     <h2>Do You Need This?</h2>
@@ -103,7 +103,7 @@
         <li><strong>Play from other devices:</strong> open your saves from a laptop, tablet, or phone browser on the same network.</li>
         <li><strong>Hack on it:</strong> the source is AGPL-3.0-licensed; this is how you run your own changes.</li>
       </ul>
-      <p>Whichever way you run it, Open Historia is <span class="highlight">local-first</span>: there is no central game server and no account. Your saves and scenarios live in the server's data directory on your machine, and your AI key goes only to the provider you configured.</p>
+      <p>Whichever way you run it, Web Historia is <span class="highlight">local-first</span>: there is no central game server and no account. Your saves and scenarios live in the server's data directory on your machine, and your AI key goes only to the provider you configured.</p>
     </div>
 
     <h2>Install and Run from Source</h2>
@@ -196,7 +196,7 @@ npm run build</code></pre>
       <h3>Linux (systemd)</h3>
       <p>Create <code>/etc/systemd/system/open-historia.service</code>:</p>
       <pre><code>[Unit]
-Description=Open Historia Game Server
+Description=Web Historia Game Server
 After=network.target
 
 [Service]
@@ -227,10 +227,10 @@ WantedBy=multi-user.target</code></pre>
       <li><a href="/how-to-play/">How to Play — gameplay mechanics and controls</a></li>
     </ul>
 
-    <a href="/" class="cta">Play Open Historia</a>
+    <a href="/" class="cta">Play Web Historia</a>
 
     <footer>
-      <p>Open Historia — free, open-source grand strategy game. <a href="https://github.com/Open-Historia/open-historia" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/QaqAK7fQAg" target="_blank" rel="noopener">Discord</a> · <a href="/sitemap.xml">Sitemap</a></p>
+      <p>Web Historia — free, open-source grand strategy game. <a href="https://github.com/Open-Historia/open-historia" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/QaqAK7fQAg" target="_blank" rel="noopener">Discord</a> · <a href="/sitemap.xml">Sitemap</a></p>
     </footer>
   </div>
 </body>

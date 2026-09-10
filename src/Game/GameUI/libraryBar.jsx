@@ -1744,7 +1744,7 @@ const LibraryTopBar = () => {
   const [serverDown, setServerDown] = useState(false);
 
   const handleShutdownServer = async () => {
-    if (!window.confirm("Shut down the Open Historia server? The game stops for everyone connected to it.")) {
+    if (!window.confirm("Shut down the Web Historia server? The game stops for everyone connected to it.")) {
       return;
     }
     try {
@@ -2071,7 +2071,7 @@ const LibraryTopBar = () => {
           {!import.meta.env.VITE_OH_WEB && (
             <button
               onClick={handleShutdownServer}
-              title="Exit: shut down the Open Historia server"
+              title="Exit: shut down the Web Historia server"
               type="button"
               style={{
                 ...actionButtonStyle,
@@ -2118,7 +2118,7 @@ const LibraryTopBar = () => {
           {!import.meta.env.VITE_OH_WEB && (
             <button
               onClick={handleShutdownServer}
-              title="Exit: shut down the Open Historia server"
+              title="Exit: shut down the Web Historia server"
               type="button"
               style={{
                 ...actionButtonStyle,
@@ -2363,11 +2363,11 @@ const LibraryTopBar = () => {
           >
             <div style={{ alignItems: "center", display: "flex", gap: "0.8rem", minWidth: 0 }}>
               <div style={{ alignItems: "center", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "999px", display: "flex", flexShrink: 0, height: "2.65rem", justifyContent: "center", overflow: "hidden", width: "2.65rem" }}>
-                <img alt="Open Historia" src="/logo.png" style={{ height: "1.7rem", width: "1.7rem" }} />
+                <img alt="Web Historia" src="/logo.png" style={{ height: "1.7rem", width: "1.7rem" }} />
               </div>
               {!isMobile && (
                 <div style={{ color: "#fff", fontSize: "1.05rem", fontWeight: 800, letterSpacing: "-0.03em" }}>
-                  Open Historia
+                  Web Historia
                 </div>
               )}
             </div>
@@ -2405,7 +2405,7 @@ const LibraryTopBar = () => {
               {!import.meta.env.VITE_OH_WEB && (
                 <button
                   onClick={handleShutdownServer}
-                  title="Exit: shut down the Open Historia server"
+                  title="Exit: shut down the Web Historia server"
                   type="button"
                   style={{
                     ...actionButtonStyle,

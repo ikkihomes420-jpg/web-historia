@@ -38,7 +38,7 @@ The repo ships to players through **rolling per-channel GitHub Releases**, drive
 | Branch | Built by | Produces |
 |--------|----------|----------|
 | `main` | `.github/workflows/app-bundle.yml` | `Open-Historia.zip` on the **`app-stable`** release (stable desktop bundle). |
-| `main` | `.github/workflows/deploy-site.yml` | Deploys **openhistoria.com** (Cloudflare Pages) via `npm run build:site`. |
+| `main` | `.github/workflows/deploy-site.yml` | Deploys **web-historia.pages.dev** (Cloudflare Pages) via `npm run build:site`. |
 | `beta` | `.github/workflows/app-bundle.yml` | `Open-Historia.zip` on the **`app-beta`** release. |
 | (any) `mobile/**` change | `.github/workflows/android-apk.yml` | `pax-historia.apk` on the **`android`** release (run from the Actions tab, or push an `android-v*` tag). |
 

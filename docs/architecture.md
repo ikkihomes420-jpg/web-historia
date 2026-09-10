@@ -33,7 +33,7 @@ All three run the identical `src/` client. What changes is (a) the `VITE_OH_WEB`
 | Variant | Build command | `/api` backend | Asset storage | Distribution |
 |---|---|---|---|---|
 | **Desktop download** ("Download for Windows/Mac/Linux") | `npm run build` → `dist/` | Local Express server `server/server.js` on `localhost:3000` | Files under `server/data/` (JSON manifests + binary assets) | Zip + launcher scripts (`Launch Open Historia.*`) |
-| **Web build** (the hosted website `openhistoria.com/play/`) | `npm run build:web` / `build:site` → `dist-web/` | **No server** — a `fetch()` interceptor answers `/api/*` from IndexedDB | IndexedDB in the browser; map tiles from the registry Worker / content nodes | Cloudflare Pages |
+| **Web build** (the hosted website `web-historia.pages.dev/play/`) | `npm run build:web` / `build:site` → `dist-web/` | **No server** — a `fetch()` interceptor answers `/api/*` from IndexedDB | IndexedDB in the browser; map tiles from the registry Worker / content nodes | Cloudflare Pages |
 | **Android app** | client from `dist/` inside APK; server via `npm run build:mobile-server` | Embedded Express (`server/server.js`) run in-process by **nodejs-mobile**, bound to `127.0.0.1` | Files in a writable sandbox dir (`OH_DATA_DIR`) | Capacitor APK (`mobile/`) |
 
 ### How the compile-time flag selects the variant

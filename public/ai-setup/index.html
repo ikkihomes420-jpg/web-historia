@@ -14,23 +14,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b1020" />
   <link rel="icon" type="image/jpeg" href="/logo.png" />
-  <title>Connect an AI to Open Historia — Setup Guide for Gemini, OpenAI, Anthropic, Ollama &amp; More</title>
-  <link rel="canonical" href="https://openhistoria.com/ai-setup/" />
-  <meta name="description" content="Connect the AI that runs Open Historia's world: Gemini (default, free key), OpenAI, Anthropic Claude, local models through Ollama, LM Studio or llama.cpp, and OpenAI-compatible APIs such as DeepSeek, Groq and OpenRouter. What local models need, and troubleshooting." />
+  <title>Connect an AI to Web Historia — Setup Guide for Gemini, OpenAI, Anthropic, Ollama &amp; More</title>
+  <link rel="canonical" href="/ai-setup/" />
+  <meta name="description" content="Connect the AI that runs Web Historia's world: Gemini (default, free key), OpenAI, Anthropic Claude, local models through Ollama, LM Studio or llama.cpp, and OpenAI-compatible APIs such as DeepSeek, Groq and OpenRouter. What local models need, and troubleshooting." />
 
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Open Historia" />
-  <meta property="og:url" content="https://openhistoria.com/ai-setup/" />
-  <meta property="og:title" content="Connect an AI to Open Historia — Setup Guide for Gemini, OpenAI, Anthropic, Ollama &amp; More" />
-  <meta property="og:description" content="Connect the AI that runs Open Historia's world: Gemini, OpenAI, Anthropic Claude, local models, and OpenAI-compatible APIs such as DeepSeek, Groq and OpenRouter." />
+  <meta property="og:site_name" content="Web Historia" />
+  <meta property="og:url" content="/ai-setup/" />
+  <meta property="og:title" content="Connect an AI to Web Historia — Setup Guide for Gemini, OpenAI, Anthropic, Ollama &amp; More" />
+  <meta property="og:description" content="Connect the AI that runs Web Historia's world: Gemini, OpenAI, Anthropic Claude, local models, and OpenAI-compatible APIs such as DeepSeek, Groq and OpenRouter." />
   <meta property="og:image" content="https://raw.githubusercontent.com/Open-Historia/open-historia/main/public/loading_screen.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="720" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Connect an AI to Open Historia — Setup for Gemini, OpenAI, Anthropic &amp; More" />
-  <meta name="twitter:description" content="Connect the AI that runs Open Historia's world: Gemini, OpenAI, Anthropic Claude, local models, and OpenAI-compatible APIs." />
+  <meta name="twitter:title" content="Connect an AI to Web Historia — Setup for Gemini, OpenAI, Anthropic &amp; More" />
+  <meta name="twitter:description" content="Connect the AI that runs Web Historia's world: Gemini, OpenAI, Anthropic Claude, local models, and OpenAI-compatible APIs." />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/Open-Historia/open-historia/main/public/loading_screen.jpg" />
 
   <link rel="stylesheet" href="/guides.css" />
@@ -39,8 +39,8 @@
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Connect an AI to Open Historia",
-    "description": "Step-by-step guide to connect an AI provider (Gemini, OpenAI, Anthropic Claude, a local model through Ollama, LM Studio or llama.cpp, or any OpenAI-compatible API) to Open Historia. The AI runs the game's world, so this is required to play.",
+    "name": "How to Connect an AI to Web Historia",
+    "description": "Step-by-step guide to connect an AI provider (Gemini, OpenAI, Anthropic Claude, a local model through Ollama, LM Studio or llama.cpp, or any OpenAI-compatible API) to Web Historia. The AI runs the game's world, so this is required to play.",
     "step": [
       {
         "@type": "HowToStep",
@@ -57,7 +57,7 @@
       {
         "@type": "HowToStep",
         "position": "3",
-        "name": "Configure Open Historia",
+        "name": "Configure Web Historia",
         "text": "Open a game, open Settings, and under AI select the provider, then enter the API key, and for compatible providers the endpoint URL and model name."
       },
       {
@@ -77,14 +77,14 @@
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Open Historia",
-        "item": "https://openhistoria.com/"
+        "name": "Web Historia",
+        "item": "/"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "AI Setup Guide",
-        "item": "https://openhistoria.com/ai-setup/"
+        "item": "/ai-setup/"
       }
     ]
   }
@@ -93,15 +93,15 @@
 <body>
   <div class="page">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <a href="/">Open Historia</a> <span aria-hidden="true">/</span> AI Setup Guide
+      <a href="/">Web Historia</a> <span aria-hidden="true">/</span> AI Setup Guide
     </nav>
 
-    <img class="logo" src="/logo.png" alt="Open Historia logo" width="64" height="64" />
+    <img class="logo" src="/logo.png" alt="Web Historia logo" width="64" height="64" />
 
     <h1>Connect your AI</h1>
-    <p class="tagline">Open Historia's world is simulated by a language model you supply — from a free Gemini key to a model running on your own hardware. This guide covers every option.</p>
+    <p class="tagline">Web Historia's world is simulated by a language model you supply — from a free Gemini key to a model running on your own hardware. This guide covers every option.</p>
 
-    <h2>What the AI Does in Open Historia</h2>
+    <h2>What the AI Does in Web Historia</h2>
     <div class="feature-grid">
       <div class="feature-tag">Time skips — resolves your actions, plays every other nation, writes the events, moves borders and fronts</div>
       <div class="feature-tag">Diplomacy — leaders answer you in character in natural-language chat</div>
@@ -114,7 +114,7 @@
 
     <h2>How It Works</h2>
     <div class="card">
-      <p>Open Historia supports <strong>five provider types</strong> from a single settings panel, and you can switch between them at any time:</p>
+      <p>Web Historia supports <strong>five provider types</strong> from a single settings panel, and you can switch between them at any time:</p>
       <ul>
         <li><strong>Gemini</strong> — Google's native API (Google AI Studio); the default</li>
         <li><strong>OpenAI</strong> — the official OpenAI API</li>
@@ -122,7 +122,7 @@
         <li><strong>OpenAI Compatible</strong> — anything that speaks the <code>/v1/chat/completions</code> protocol: Ollama, LM Studio, llama.cpp, vLLM, DeepSeek, Groq, Together, OpenRouter, and more</li>
         <li><strong>Anthropic Compatible</strong> — a self-hosted proxy or gateway that speaks the Anthropic Messages API</li>
       </ul>
-      <p>Your key is stored in the app and sent only to the provider you chose — Open Historia has no server of its own in the loop. Requests go straight from the game to the provider. In the desktop app and on a self-hosted install, a provider that refuses browser requests (local servers such as llama.cpp and LM Studio usually send no CORS headers) is automatically reached through the game server's own same-origin relay instead, so those just work. <strong>On openhistoria.com there is no relay:</strong> the provider must accept requests from the website. Cloud APIs do; a local Ollama needs to be told to allow the site's origin (see Ollama below).</p>
+      <p>Your key is stored in the app and sent only to the provider you chose — Web Historia has no server of its own in the loop. Requests go straight from the game to the provider. Because Web Historia runs entirely in your browser, the provider must accept requests from the site's origin — there is no server in the loop to relay through. Cloud APIs (OpenRouter, Gemini, OpenAI, Anthropic) all do; a local Ollama needs to be told to allow the site's origin (see Ollama below).</p>
       <p>To configure a provider: open a game, open <strong>Settings</strong>, and under <strong>AI</strong> pick the provider and fill in its fields.</p>
     </div>
 
@@ -136,7 +136,7 @@
         <p>Go to <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a>, sign in with a Google account, and click "Create API key".</p>
       </div>
       <div class="step">
-        <strong>Configure in Open Historia</strong>
+        <strong>Configure in Web Historia</strong>
         <p>In Settings, select <strong>Gemini</strong> and paste your key. No endpoint URL is needed. The default model is <code>gemini-3.5-flash-lite</code>; you can enter any Gemini model id your key can use — a larger Flash or Pro model gives stronger reasoning at a higher cost and tighter rate limits.</p>
       </div>
     </div>
@@ -149,7 +149,7 @@
         <p>Sign up at <a href="https://platform.openai.com" target="_blank" rel="noopener">platform.openai.com</a>, add a payment method, and create a key under "API keys".</p>
       </div>
       <div class="step">
-        <strong>Configure in Open Historia</strong>
+        <strong>Configure in Web Historia</strong>
         <p>Select <strong>OpenAI</strong> and paste your key. The endpoint is fixed. Leave the model blank and the game picks from the models your key can access, or type a specific model id.</p>
       </div>
     </div>
@@ -162,7 +162,7 @@
         <p>Sign up at <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> and generate a key.</p>
       </div>
       <div class="step">
-        <strong>Configure in Open Historia</strong>
+        <strong>Configure in Web Historia</strong>
         <p>Select <strong>Anthropic</strong> and paste your key. The default model is <code>claude-haiku-4-5</code>, the fast and inexpensive option; enter a Sonnet model id for richer writing at a higher cost.</p>
       </div>
     </div>
@@ -175,7 +175,7 @@
         <p>Register at <a href="https://platform.deepseek.com" target="_blank" rel="noopener">platform.deepseek.com</a>, add credit, and create a key.</p>
       </div>
       <div class="step">
-        <strong>Configure in Open Historia</strong>
+        <strong>Configure in Web Historia</strong>
         <p>Select <strong>OpenAI Compatible</strong>. Set the endpoint to <code>https://api.deepseek.com/v1</code>, enter your key, and set the model to <code>deepseek-chat</code> (or <code>deepseek-reasoner</code> for a reasoning model).</p>
       </div>
     </div>
@@ -194,12 +194,12 @@
         <p>Download from <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a>, install, then pull an instruct model of your choice with <code>ollama pull &lt;model&gt;</code>. Raise its context window — for example by setting <code>OLLAMA_CONTEXT_LENGTH=32768</code> before starting Ollama, or with a <code>num_ctx</code> parameter in the model's settings.</p>
       </div>
       <div class="step">
-        <strong>Configure in Open Historia</strong>
+        <strong>Configure in Web Historia</strong>
         <p>Select <strong>OpenAI Compatible</strong>. The endpoint defaults to <code>http://localhost:11434/v1</code>, which is Ollama's. Enter the model name you pulled; no API key is needed.</p>
       </div>
       <div class="step">
-        <strong>Playing on openhistoria.com?</strong>
-        <p>The website's requests come from a different origin, and Ollama refuses those unless told otherwise. Start Ollama with <code>OLLAMA_ORIGINS=https://openhistoria.com</code>. The desktop app needs no such setup.</p>
+        <strong>Playing in the browser?</strong>
+        <p>The website's requests come from a different origin, and Ollama refuses those unless told otherwise. Start Ollama with <code>OLLAMA_ORIGINS=https://&lt;your-site&gt;</code>.</p>
       </div>
     </div>
 
@@ -211,7 +211,7 @@
         <p>Use the built-in model browser to download an instruct model, load it with a large context length, then start the local server from the Developer tab. The default address is <code>http://localhost:1234/v1</code>.</p>
       </div>
       <div class="step">
-        <strong>Configure in Open Historia</strong>
+        <strong>Configure in Web Historia</strong>
         <p>Select <strong>OpenAI Compatible</strong>, set the endpoint to <code>http://localhost:1234/v1</code>, and enter the model name shown by LM Studio. No API key needed.</p>
       </div>
     </div>
@@ -224,7 +224,7 @@
         <p><code>./llama-server -m model.gguf -c 32768 --port 8080</code></p>
       </div>
       <div class="step">
-        <strong>Configure in Open Historia</strong>
+        <strong>Configure in Web Historia</strong>
         <p>Select <strong>OpenAI Compatible</strong> and set the endpoint to <code>http://localhost:8080/v1</code>.</p>
       </div>
     </div>
@@ -335,7 +335,7 @@
       <h3>Responses are slow</h3>
       <p>A time skip is a long generation and takes a while even on fast cloud models. For local models, enable GPU offloading (Ollama and LM Studio both support it) or try a smaller model. Groq is particularly fast among cloud services.</p>
       <h3>CORS or "failed to fetch" errors</h3>
-      <p>In the desktop app and on a self-hosted install, providers that refuse browser requests are relayed through the game server automatically. On openhistoria.com there is no relay: a local Ollama must be started with <code>OLLAMA_ORIGINS=https://openhistoria.com</code>, and servers that never send CORS headers (llama.cpp, LM Studio) cannot be used from the website at all — use the desktop app for those.</p>
+      <p>Web Historia runs entirely in your browser, so there is no relay: providers that never send CORS headers (llama.cpp, LM Studio) cannot be used from the website at all. A local Ollama must be started with <code>OLLAMA_ORIGINS=https://&lt;your-site&gt;</code>.</p>
     </div>
 
     <h2>Related Guides</h2>
@@ -345,10 +345,10 @@
       <li><a href="/how-to-play/">How to Play — gameplay mechanics and controls</a></li>
     </ul>
 
-    <a href="/" class="cta">Play Open Historia</a>
+    <a href="/" class="cta">Play Web Historia</a>
 
     <footer>
-      <p>Open Historia — free, open-source grand strategy game. <a href="https://github.com/Open-Historia/open-historia" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/QaqAK7fQAg" target="_blank" rel="noopener">Discord</a> · <a href="/sitemap.xml">Sitemap</a></p>
+      <p>Web Historia — free, open-source grand strategy game. <a href="https://github.com/Open-Historia/open-historia" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/QaqAK7fQAg" target="_blank" rel="noopener">Discord</a> · <a href="/sitemap.xml">Sitemap</a></p>
     </footer>
   </div>
 </body>

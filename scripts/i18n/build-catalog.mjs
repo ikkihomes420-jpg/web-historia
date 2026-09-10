@@ -15,7 +15,7 @@ const OUT_DIR = path.join(ROOT, "public", "lang");
 const UI_STRINGS = [
   // Top bar / library
   "Games", "Scenarios", "Community", "New Game", "Edit", "Clone Scenario",
-  "Refresh", "Import JSON", "Open Historia", "Loading Community…",
+  "Refresh", "Import JSON", "Web Historia", "Loading Community…",
   // New-game dialog
   "Choose your country", "Choose your difficulty", "How hard should the world fight back?",
   "Scenario default", "Keep scenario default", "Cancel", "Done", "Back",
