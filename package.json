@@ -8,19 +8,15 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/seed-web-defaults.mjs && vite --mode web",
     "dev:web": "node scripts/seed-web-defaults.mjs && vite --mode web",
-    "build": "vite build",
+    "build": "node scripts/seed-web-defaults.mjs && vite build --mode web --outDir dist-web --emptyOutDir",
     "build:web": "node scripts/seed-web-defaults.mjs && vite build --mode web --outDir dist-web --emptyOutDir",
     "build:site": "node scripts/seed-web-defaults.mjs && vite build --mode web --base /play/ --outDir dist-web --emptyOutDir && node scripts/assemble-site.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "preview:web": "vite preview --outDir dist-web",
-    "test": "node --test \"server/**/*.test.js\" \"src/**/*.test.js\"",
-    "electron": "electron .",
-    "dist:win": "npm run build && electron-builder --win",
-    "dist:mac": "npm run build && electron-builder --mac",
-    "dist:linux": "npm run build && electron-builder --linux"
+    "test": "node --test \"server/**/*.test.js\" \"src/**/*.test.js\""
   },
   "dependencies": {
     "@noble/ed25519": "^2.3.0",
@@ -37,7 +33,6 @@
     "chart.js": "^4.5.1",
     "d3-geo": "^3.1.1",
     "dayjs": "^1.11.19",
-    "electron-updater": "^6.8.9",
     "eslint": "^9.39.3",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.26",
@@ -71,94 +66,5 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^7.3.2"
-  },
-  "optionalDependencies": {
-    "electron": "^33.2.0",
-    "electron-builder": "^25.1.8"
-  },
-  "main": "electron/main.cjs",
-  "build": {
-    "appId": "io.github.arkniem.openhistoria",
-    "productName": "Open Historia",
-    "files": [
-      "LICENSE",
-      "dist/**",
-      "server/**",
-      "electron/**",
-      "scripts/fetch-map-assets.mjs",
-      "scripts/map-assets.json",
-      "public/lang/**",
-      "package.json",
-      "!**/*.map"
-    ],
-    "asarUnpack": [
-      "scripts/**"
-    ],
-    "publish": [
-      {
-        "provider": "generic",
-        "url": "https://github.com/Open-Historia/open-historia/releases/download/desktop-stable",
-        "channel": "latest"
-      }
-    ],
-    "directories": {
-      "output": "release",
-      "buildResources": "build"
-    },
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "icon": "public/icon-512.png",
-      "artifactName": "Open-Historia-Setup-${os}.${ext}"
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "Open Historia",
-      "artifactName": "Open-Historia-Setup.${ext}"
-    },
-    "mac": {
-      "target": [
-        {
-          "target": "zip",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
-      ],
-      "icon": "public/icon-512.png",
-      "category": "public.app-category.strategy-games",
-      "artifactName": "Open-Historia-mac-${arch}.${ext}"
-    },
-    "linux": {
-      "maintainer": "Arkniem <nichojkrol@gmail.com>",
-      "target": [
-        {
-          "target": "AppImage",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "deb",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "icon": "public/icon-512.png",
-      "category": "Game",
-      "artifactName": "Open-Historia-${arch}.${ext}"
-    }
   }
 }
