@@ -438,6 +438,34 @@ const ProviderSettingsPanel = ({ provider, settings, onSettingChange }) => {
         {meta.description}
         </div>
 
+        {provider === "openrouter" && (
+            <>
+            <SettingsInput
+            label="API Key"
+            type="password"
+            value={settings.openrouterApiKey ?? ""}
+            onChange={(value) => onSettingChange("openrouterApiKey", value)}
+            placeholder="sk-or-v1-..."
+            helperText="Create a key at openrouter.ai/keys. Your key goes straight from your browser to OpenRouter — it never touches our servers."
+            />
+            <SettingsInput
+            label="Model"
+            value={settings.openrouterModel ?? ""}
+            onChange={(value) => onSettingChange("openrouterModel", value)}
+            placeholder="Auto (recommended)"
+            helperText="Leave blank and OpenRouter picks the best model for each request automatically. Suggested: anthropic/claude-sonnet-5 (narrative), google/gemini-3.8-flash (fast/cheap), openai/gpt-5-mini (structured), deepseek/deepseek-chat-v3.1 (budget chat)."
+            />
+            <SettingsInput
+            label="Custom parameters (JSON)"
+            multiline
+            value={settings.openrouterCustomParams ?? ""}
+            onChange={(value) => onSettingChange("openrouterCustomParams", value)}
+            placeholder='{"top_p": 0.9}'
+            helperText="Optional. Merged into the request body — e.g. to limit reasoning budget/effort. Invalid JSON is ignored."
+            />
+            </>
+        )}
+
         {provider === "gemini" && (
             <>
             <SettingsInput

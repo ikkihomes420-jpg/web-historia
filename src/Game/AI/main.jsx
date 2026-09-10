@@ -1107,6 +1107,40 @@ async function callAnthropicCompatible(systemPrompt, history, {
     }
 }
 
+const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1";
+const OPENROUTER_DEFAULT_MODEL = "openrouter/auto";
+
+async function callOpenRouter(systemPrompt, history, opts = {}) {
+    const settings = getProviderSettings("openrouter");
+    const apiKey = settings.apiKey.trim();
+
+    if (!apiKey) {
+        throw new Error("Go to **settings**, choose OpenRouter, and paste your key from openrouter.ai/keys.");
+    }
+
+    const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+        "HTTP-Referer": typeof window !== "undefined" ? window.location.origin : "https://historia.web",
+        "X-Title": "Historia Web",
+    };
+
+    const model = (settings.model || "").trim() || OPENROUTER_DEFAULT_MODEL;
+
+    return callOpenAIStyleChatCompletions({
+        endpoint: OPENROUTER_ENDPOINT,
+        headers,
+        model,
+        systemPrompt,
+        history,
+        providerLabel: "OpenRouter",
+        customParams: parseCustomParams(settings.customParams, "OpenRouter"),
+        allowJsonSchemaFallback: true,
+        tokenLimitField: "max_tokens",
+        ...opts,
+    });
+}
+
 export async function callAI(systemPrompt, history, opts = {}) {
     // Non-English players get replies in their language at the source —
     // native answers beat post-translating them (see runtime/i18n.js).
@@ -1119,6 +1153,8 @@ export async function callAI(systemPrompt, history, opts = {}) {
     }
 
     switch (getStoredProvider()) {
+    case "openrouter":
+        return callOpenRouter(systemPrompt, history, providerOpts);
     case "openai":
         return callOpenAI(systemPrompt, history, providerOpts);
     case "anthropic":

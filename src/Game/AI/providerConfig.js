@@ -1,7 +1,14 @@
 /*! Open Historia — portions (reasoning-effort toggle persistence) © 2026 Nicholas Krol, AGPL-3.0-or-later (see LICENSE). */
-export const DEFAULT_PROVIDER = "gemini";
+export const DEFAULT_PROVIDER = "openrouter";
 
 export const PROVIDER_OPTIONS = [
+    {
+        value: "openrouter",
+        label: "OpenRouter (recommended)",
+        group: "Recommended",
+        description: "One key, ~400 models. Blank model = OpenRouter's auto-router picks the best per request.",
+        searchTerms: ["openrouter", "auto", "router", "multi model", "recommended"],
+    },
     {
         value: "gemini",
         label: "Gemini",
@@ -40,6 +47,15 @@ export const PROVIDER_OPTIONS = [
 ];
 
 const PROVIDER_SETTINGS = {
+    openrouter: {
+        apiKey: { storageKey: "openrouter_api_key", defaultValue: "" },
+        model: {
+            storageKey: "openrouter_model",
+            // Blank = openrouter/auto — OpenRouter picks the recommended model per request.
+            defaultValue: "",
+        },
+        customParams: { storageKey: "openrouter_custom_params", defaultValue: "" },
+    },
     gemini: {
         apiKey: { storageKey: "gemini_api_key", defaultValue: "" },
         model: { storageKey: "gemini_model", defaultValue: "gemini-3.5-flash-lite" },
@@ -84,6 +100,9 @@ const PROVIDER_SETTINGS = {
 };
 
 const FORM_FIELD_MAP = {
+    openrouterApiKey: { provider: "openrouter", field: "apiKey" },
+    openrouterModel: { provider: "openrouter", field: "model" },
+    openrouterCustomParams: { provider: "openrouter", field: "customParams" },
     geminiApiKey: { provider: "gemini", field: "apiKey" },
     geminiModel: { provider: "gemini", field: "model" },
     geminiCustomParams: { provider: "gemini", field: "customParams" },
@@ -142,7 +161,8 @@ export function getProviderMeta(provider) {
 
 export function providerSupportsModelDiscovery(provider) {
     const normalized = normalizeProvider(provider);
-    return normalized === "openai" || normalized === "openai-compatible";
+    return normalized === "openai" || normalized === "openai-compatible"
+        || normalized === "openrouter";
 }
 
 export function getProviderField(provider, field) {
