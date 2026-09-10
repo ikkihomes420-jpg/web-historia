@@ -276,6 +276,11 @@ const OPTIONAL_JSON_ASSET_FILES = {
 // into the polled details bundle — a snapshot list holds full prior state and can
 // be large. Read/written only through the /api/runtime/json/snapshots endpoint.
 const RUNTIME_ONLY_JSON_ASSET_FILES = {
+  // Campaign memory (dossiers/episodes/chronicle/territory) + economy ledger:
+  // written by the AI layer after turns, read by prompt assembly. Own files so
+  // world.json's 5s poll never carries them.
+  memory: "storage/memory.json",
+  economy: "storage/economy.json",
   snapshots: "storage/snapshots.json",
   // What the player's spies have intercepted, keyed by target polity. Its own
   // file on purpose: it is refreshed AFTER a jump's world write lands, and a
@@ -339,6 +344,8 @@ const JSON_ASSET_DEFAULTS = {
   world: {},
   snapshots: [],
   intercepts: {},
+  memory: {},
+  economy: {},
 };
 
 const TEMPLATE_WORLD_OVERRIDE_KEYS = [

@@ -2,6 +2,8 @@
 import { callAI } from "./main.jsx";
 import { taskClassForTask } from "./openrouterModels.js";
 import { readMemory, writeMemory, mergeTurnMemory, buildMemoryContextText } from "./memory.js";
+import { readEconomy, economyTick, buildEconomyContextText } from "./economy.js";
+import { refreshPolityIdentities } from "./polityIdentity.js";
 import { logAi } from "../../runtime/logClient.js";
 import { normalizePromptPack } from "./gameplayPrompts.js";
 import { getGameplayTool, validateGameplayPayload } from "./gameplaySchemas.js";
@@ -478,8 +480,13 @@ const runJsonTask = async (taskKey, {
       taskClass: taskClassForTask(taskKey),
     });
     if (memoryBlock) systemPrompt = `${systemPrompt}\n\n${memoryBlock}`;
+    const economy = await readEconomy().catch(() => null);
+    if (economy) {
+      const economyBlock = buildEconomyContextText(economy, { focusCodes });
+      if (economyBlock) systemPrompt = `${systemPrompt}\n\n${economyBlock}`;
+    }
   } catch {
-    // Memory is best-effort: a failed read never blocks a turn.
+    // Memory/economy are best-effort: a failed read never blocks a turn.
   }
 
   // Player agency: jumps must never sign the player up for landmark decisions.
@@ -1848,6 +1855,16 @@ const applySimulationResult = async ({
     console.warn("[ai] campaign memory update failed; the turn is unaffected.", error);
   }
 
+  // Economy ledger advances deterministically every round (best-effort).
+  let economyToWrite = null;
+  try {
+    economyToWrite = economyTick(nextWorld, nextGame.round || 1, {
+      playerCode: normalizeString(baseGame.country),
+    });
+  } catch (error) {
+    console.warn("[ai] economy tick failed; the turn is unaffected.", error);
+  }
+
   await Promise.all([
     writeActionsState(nextActions),
     writeChatsState(chatsToWrite),
@@ -1856,7 +1873,15 @@ const applySimulationResult = async ({
     writeJson(JSON_URLS.colors, nextColors, { pretty: true }),
     writeWorldState(nextWorld),
     ...(memoryToWrite ? [writeJson(JSON_URLS.memory, memoryToWrite)] : []),
+    ...(economyToWrite ? [writeEconomy(economyToWrite)] : []),
   ]);
+
+  // Periodic culture/religion/ideology dossier refresh (every 3rd round).
+  // Deliberately NOT awaited: it is advisory state for future turns, and a
+  // slow model must never delay the turn result reaching the player.
+  if ((nextGame.round || 1) % 3 === 1) {
+    refreshPolityIdentities({ round: nextGame.round || 1 }).catch(() => {});
+  }
 
   // The turn's new state is now persisted. Web-mode encrypted sync listens for this
   // to back up the turn (replacing a fixed 20s poll); it is a no-op in desktop mode

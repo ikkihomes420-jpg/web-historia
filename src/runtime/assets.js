@@ -66,6 +66,7 @@ const buildAbsoluteUrl = (pathname) => {
 export const JSON_URLS = {
   advisor: "",
   memory: "",
+  economy: "",
   actions: "",
   chat: "",
   colors: "",
@@ -273,6 +274,7 @@ export const setRuntimeAssetEndpoints = ({ token = "" } = {}) => {
   JSON_URLS.prompts = withRuntimeToken("/api/runtime/json/prompts");
   JSON_URLS.snapshots = withRuntimeToken("/api/runtime/json/snapshots");
   JSON_URLS.memory = withRuntimeToken("/api/runtime/json/memory");
+  JSON_URLS.economy = withRuntimeToken("/api/runtime/json/economy");
   JSON_URLS.intercepts = withRuntimeToken("/api/runtime/json/intercepts");
   JSON_URLS.regionsGeojson = withRuntimeToken("/api/runtime/json/regionsGeojson");
   JSON_URLS.citiesGeojson = withRuntimeToken("/api/runtime/json/citiesGeojson");
