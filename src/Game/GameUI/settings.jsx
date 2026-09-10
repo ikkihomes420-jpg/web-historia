@@ -455,6 +455,37 @@ const ProviderSettingsPanel = ({ provider, settings, onSettingChange }) => {
             placeholder="Auto (recommended)"
             helperText="Leave blank and OpenRouter picks the best model for each request automatically. Suggested: anthropic/claude-sonnet-5 (narrative), google/gemini-3.8-flash (fast/cheap), openai/gpt-5-mini (structured), deepseek/deepseek-chat-v3.1 (budget chat)."
             />
+            <div style={{ marginTop: "0.6rem", fontWeight: 600, fontSize: "0.92em" }}>
+            Per-task model overrides (optional)
+            </div>
+            <SettingsInput
+            label="Narrative model (timeline jumps, catalysts, backstory)"
+            value={settings.openrouterModelNarrative ?? ""}
+            onChange={(value) => onSettingChange("openrouterModelNarrative", value)}
+            placeholder="Auto-route"
+            helperText="The strongest storytelling — e.g. anthropic/claude-sonnet-5."
+            />
+            <SettingsInput
+            label="Structured model (GM commands, actions)"
+            value={settings.openrouterModelStructured ?? ""}
+            onChange={(value) => onSettingChange("openrouterModelStructured", value)}
+            placeholder="Auto-route"
+            helperText="Tool-calling workhorse — e.g. openai/gpt-5-mini."
+            />
+            <SettingsInput
+            label="Chat model (advisor, leader diplomacy)"
+            value={settings.openrouterModelChat ?? ""}
+            onChange={(value) => onSettingChange("openrouterModelChat", value)}
+            placeholder="Auto-route"
+            helperText="Fast conversation — e.g. google/gemini-3.8-flash."
+            />
+            <SettingsInput
+            label="Utility model (consolidation, stat sheets)"
+            value={settings.openrouterModelUtility ?? ""}
+            onChange={(value) => onSettingChange("openrouterModelUtility", value)}
+            placeholder="Auto-route"
+            helperText="Cheapest model that can follow a schema — e.g. google/gemini-3.8-flash."
+            />
             <SettingsInput
             label="Custom parameters (JSON)"
             multiline

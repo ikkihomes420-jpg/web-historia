@@ -51,9 +51,14 @@ const PROVIDER_SETTINGS = {
         apiKey: { storageKey: "openrouter_api_key", defaultValue: "" },
         model: {
             storageKey: "openrouter_model",
-            // Blank = openrouter/auto — OpenRouter picks the recommended model per request.
+            // Blank = routed per task class (or openrouter/auto) — OpenRouter
+            // picks the recommended model per request.
             defaultValue: "",
         },
+        modelNarrative: { storageKey: "openrouter_model_narrative", defaultValue: "" },
+        modelStructured: { storageKey: "openrouter_model_structured", defaultValue: "" },
+        modelChat: { storageKey: "openrouter_model_chat", defaultValue: "" },
+        modelUtility: { storageKey: "openrouter_model_utility", defaultValue: "" },
         customParams: { storageKey: "openrouter_custom_params", defaultValue: "" },
     },
     gemini: {
@@ -102,6 +107,10 @@ const PROVIDER_SETTINGS = {
 const FORM_FIELD_MAP = {
     openrouterApiKey: { provider: "openrouter", field: "apiKey" },
     openrouterModel: { provider: "openrouter", field: "model" },
+    openrouterModelNarrative: { provider: "openrouter", field: "modelNarrative" },
+    openrouterModelStructured: { provider: "openrouter", field: "modelStructured" },
+    openrouterModelChat: { provider: "openrouter", field: "modelChat" },
+    openrouterModelUtility: { provider: "openrouter", field: "modelUtility" },
     openrouterCustomParams: { provider: "openrouter", field: "customParams" },
     geminiApiKey: { provider: "gemini", field: "apiKey" },
     geminiModel: { provider: "gemini", field: "model" },

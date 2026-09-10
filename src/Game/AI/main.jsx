@@ -1132,9 +1132,18 @@ async function callOpenRouter(systemPrompt, history, opts = {}) {
         "X-Title": "Historia Web",
     };
 
+    // Per-task-class model assignment (like Pax Historia's per-task model
+    // pickers): a player-chosen class override wins; otherwise route from
+    // the curated table; a global model choice wins over routing entirely.
+    const classOverride = ({
+        narrative: settings.modelNarrative,
+        structured: settings.modelStructured,
+        chat: settings.modelChat,
+        utility: settings.modelUtility,
+    })[opts.taskClass] ?? "";
     const { model, models } = resolveRoutedModel(
-        settings.model,
-        opts.taskClass,
+        classOverride.trim() || settings.model,
+        classOverride.trim() ? null : opts.taskClass,
     );
 
     return callOpenAIStyleChatCompletions({

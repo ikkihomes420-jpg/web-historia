@@ -473,7 +473,10 @@ const runJsonTask = async (taskKey, {
       normalizeString(game?.country),
       ...Object.keys(world?.polityOverrides ?? {}),
     ].filter(Boolean);
-    const memoryBlock = buildMemoryContextText(memory, { focusCodes });
+    const memoryBlock = buildMemoryContextText(memory, {
+      focusCodes,
+      taskClass: taskClassForTask(taskKey),
+    });
     if (memoryBlock) systemPrompt = `${systemPrompt}\n\n${memoryBlock}`;
   } catch {
     // Memory is best-effort: a failed read never blocks a turn.
@@ -1835,6 +1838,11 @@ const applySimulationResult = async ({
         ...Object.keys(baseWorld.polityOverrides ?? {}),
       ],
       date: nextGame.gameDate,
+      // ENGINE MAP TRUTH: diff the final post-turn world ownership against
+      // the last snapshot. Region ids named in this turn's transfers are
+      // attributed to the narrative; every other change is an external edit
+      // (player, cheat, tooling) and gets logged as such.
+      world: nextWorld,
     });
   } catch (error) {
     console.warn("[ai] campaign memory update failed; the turn is unaffected.", error);
