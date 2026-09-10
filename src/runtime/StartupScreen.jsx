@@ -83,8 +83,6 @@ const StartupScreen = ({
   return (
     <>
     <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
-
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
       .ss-shell {
@@ -92,8 +90,8 @@ const StartupScreen = ({
         width: 100vw;
         height: 100vh;
         overflow: hidden;
-        background: #050403;
-        font-family: 'EB Garamond', Georgia, serif;
+        background: #0a0b0d;
+        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
       }
 
       /* Cross-fading artwork layers (one per loaded image) */
@@ -113,12 +111,12 @@ const StartupScreen = ({
         inset: 0;
         background: linear-gradient(
           to bottom,
-          rgba(0,0,0,0)       0%,
-                                    rgba(0,0,0,0)       35%,
-                                    rgba(4,3,2,0.55)    55%,
-                                    rgba(4,3,2,0.88)    72%,
-                                    rgba(4,3,2,0.97)    85%,
-                                    rgba(4,3,2,1)       100%
+          rgba(10,11,13,0)     0%,
+                                    rgba(10,11,13,0)     35%,
+                                    rgba(10,11,13,0.55)  55%,
+                                    rgba(10,11,13,0.88)  72%,
+                                    rgba(10,11,13,0.97)  85%,
+                                    rgba(10,11,13,1)     100%
         );
         pointer-events: none;
         z-index: 1;
@@ -171,38 +169,38 @@ const StartupScreen = ({
       }
 
       .ss-logo {
-        width: 3.6rem;
-        height: 3.6rem;
+        width: 3.4rem;
+        height: 3.4rem;
         object-fit: contain;
-        filter: drop-shadow(0 0 10px rgba(210,165,40,0.5));
-        animation: logoBreath 3.5s ease-in-out infinite;
+        filter: drop-shadow(0 0 10px rgba(91,157,255,0.35));
+        animation: logoBreath 3.6s ease-in-out infinite;
         flex-shrink: 0;
       }
 
       @keyframes logoBreath {
-        0%,100% { filter: drop-shadow(0 0 8px rgba(210,165,40,0.4)); }
-        50%      { filter: drop-shadow(0 0 18px rgba(230,185,60,0.75)); }
+        0%,100% { filter: drop-shadow(0 0 8px rgba(91,157,255,0.25)); }
+        50%      { filter: drop-shadow(0 0 16px rgba(91,157,255,0.55)); }
       }
 
       .ss-title-block {}
 
       .ss-game-name {
-        font-family: 'Cinzel', serif;
-        font-size: clamp(0.55rem, 1vw, 0.65rem);
-        font-weight: 500;
-        letter-spacing: 0.32em;
+        font-family: 'Inter', sans-serif;
+        font-size: clamp(0.58rem, 1vw, 0.68rem);
+        font-weight: 600;
+        letter-spacing: 0.34em;
         text-transform: uppercase;
-        color: rgba(200,158,50,0.6);
-        margin-bottom: 0.2rem;
+        color: rgba(91,157,255,0.75);
+        margin-bottom: 0.35rem;
       }
 
       .ss-title {
-        font-family: 'Cinzel', serif;
-        font-size: clamp(1.4rem, 2.6vw, 2rem);
-        font-weight: 700;
-        color: #f2e8cc;
-        letter-spacing: 0.05em;
-        text-shadow: 0 2px 24px rgba(180,130,30,0.35), 0 0 60px rgba(0,0,0,0.8);
+        font-family: 'Inter', sans-serif;
+        font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+        font-weight: 600;
+        color: #f4f5f7;
+        letter-spacing: -0.02em;
+        text-shadow: 0 2px 30px rgba(0,0,0,0.7);
         line-height: 1;
       }
 
@@ -218,31 +216,29 @@ const StartupScreen = ({
       .ss-step-name {
         font-size: clamp(0.78rem, 1.2vw, 0.9rem);
         font-weight: 400;
-        font-style: italic;
-        color: rgba(215,190,140,0.75);
+        color: rgba(244,245,247,0.66);
         letter-spacing: 0.01em;
       }
 
       .ss-step-counter {
-        font-family: 'Cinzel', serif;
-        font-size: 0.6rem;
-        letter-spacing: 0.2em;
-        color: rgba(180,140,50,0.45);
+        font-family: 'Inter', sans-serif;
+        font-size: 0.62rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        color: rgba(244,245,247,0.38);
         text-transform: uppercase;
       }
 
-      /* Decorative thin gold rule */
+      /* Quiet hairline separator */
       .ss-rule {
         width: 100%;
         height: 1px;
         background: linear-gradient(
           90deg,
           transparent 0%,
-          rgba(180,135,40,0.2) 8%,
-                                    rgba(210,165,55,0.55) 30%,
-                                    rgba(235,190,65,0.75) 50%,
-                                    rgba(210,165,55,0.55) 70%,
-                                    rgba(180,135,40,0.2) 92%,
+          rgba(255,255,255,0.04) 6%,
+                                    rgba(255,255,255,0.12) 50%,
+                                    rgba(255,255,255,0.04) 94%,
                                     transparent 100%
         );
       }
@@ -270,7 +266,7 @@ const StartupScreen = ({
   inset: -3px;
   border-radius: 6px;
   background: transparent;
-  box-shadow: 0 0 12px rgba(200,155,40,0.08);
+  box-shadow: 0 0 12px rgba(91,157,255,0.08);
   pointer-events: none;
       }
 
@@ -278,11 +274,9 @@ const StartupScreen = ({
         height: 100%;
         border-radius: 3px;
         background: linear-gradient(90deg,
-                                    #7a5008 0%,
-                                    #b8860a 25%,
-                                    #d4a820 55%,
-                                    #f0cc40 80%,
-                                    #ffe370 100%
+                                    #3b82f6 0%,
+                                    #5b9dff 60%,
+                                    #8bc0ff 100%
         );
         transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
         position: relative;
@@ -313,21 +307,22 @@ const StartupScreen = ({
         position: absolute;
         top: 50%;
         transform: translate(50%, -50%);
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
-        background: #ffe880;
-        box-shadow: 0 0 8px 3px rgba(240,200,50,0.7), 0 0 20px 6px rgba(220,170,30,0.35);
+        background: #bcd8ff;
+        box-shadow: 0 0 8px 2px rgba(91,157,255,0.6), 0 0 18px 5px rgba(59,130,246,0.28);
         pointer-events: none;
         transition: right 0.5s cubic-bezier(0.4,0,0.2,1);
       }
 
       .ss-progress-pct {
-        font-family: 'Cinzel', serif;
+        font-family: 'Inter', sans-serif;
         font-size: clamp(0.75rem, 1.1vw, 0.85rem);
-        font-weight: 700;
-        color: rgba(230,185,60,0.9);
-        letter-spacing: 0.1em;
+        font-weight: 600;
+        color: rgba(139,192,255,0.95);
+        letter-spacing: 0.04em;
+        font-variant-numeric: tabular-nums;
         min-width: 3.2rem;
         text-align: right;
         flex-shrink: 0;
@@ -354,26 +349,26 @@ const StartupScreen = ({
         border-radius: 50%;
         transition: all 0.3s;
       }
-      .ss-dot-done    { background: rgba(120,160,80,0.65); }
+      .ss-dot-done    { background: rgba(79,208,138,0.6); }
       .ss-dot-active  {
-        background: rgba(220,175,55,0.95);
-        box-shadow: 0 0 6px rgba(220,175,55,0.8);
+        background: rgba(91,157,255,0.95);
+        box-shadow: 0 0 6px rgba(91,157,255,0.8);
         animation: dotPulse 1.1s ease-in-out infinite;
         width: 7px; height: 7px;
       }
-      .ss-dot-pending { background: rgba(90,80,60,0.35); border: 1px solid rgba(130,110,60,0.2); }
+      .ss-dot-pending { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.1); }
 
       @keyframes dotPulse {
-        0%,100% { box-shadow: 0 0 4px rgba(220,175,55,0.6); }
-        50%      { box-shadow: 0 0 10px rgba(220,175,55,1); }
+        0%,100% { box-shadow: 0 0 4px rgba(91,157,255,0.6); }
+        50%      { box-shadow: 0 0 10px rgba(91,157,255,1); }
       }
 
       /* Cached bytes */
       .ss-cache {
         font-size: clamp(0.65rem, 0.9vw, 0.75rem);
-        font-style: italic;
-        color: rgba(160,140,100,0.4);
+        color: rgba(244,245,247,0.34);
         letter-spacing: 0.02em;
+        font-variant-numeric: tabular-nums;
       }
 
       /* Creator credit over the artwork — small and very subtle */
@@ -382,10 +377,11 @@ const StartupScreen = ({
         top: 0.85rem;
         right: 1.1rem;
         z-index: 5;
-        font-family: 'Cinzel', serif;
-        font-size: 0.5rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.55rem;
+        font-weight: 500;
         letter-spacing: 0.14em;
-        color: rgba(232,220,196,0.2);
+        color: rgba(244,245,247,0.22);
         text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         pointer-events: none;
         user-select: none;

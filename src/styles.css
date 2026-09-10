@@ -1,3 +1,51 @@
+/* -------------------------------------------------------------------------
+   Design system — Web Historia (modern & minimal, cool/dark, one blue accent).
+   Single source of truth for the whole app. Surfaces reference these tokens
+   via var(...) so the palette, type and depth stay cohesive across every
+   HUD panel, inspector and the editor. Keep to a tight neutral scale plus
+   one accent; add tokens here rather than hardcoding new colours in panels.
+   ------------------------------------------------------------------------- */
+:root {
+  /* Type */
+  --oh-font-sans: "Inter", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --oh-font-mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+
+  /* Neutrals — near-black canvas up through translucent glass surfaces */
+  --oh-bg: #0a0b0d;
+  --oh-surface: rgba(20, 21, 24, 0.86);
+  --oh-surface-2: rgba(30, 32, 37, 0.9);
+  --oh-surface-solid: #16181c;
+
+  /* Hairlines */
+  --oh-border: rgba(255, 255, 255, 0.08);
+  --oh-border-strong: rgba(255, 255, 255, 0.16);
+
+  /* Text */
+  --oh-text: #f4f5f7;
+  --oh-text-muted: rgba(244, 245, 247, 0.62);
+  --oh-text-subtle: rgba(244, 245, 247, 0.4);
+
+  /* Accent — one signature blue */
+  --oh-accent: #5b9dff;
+  --oh-accent-strong: #3b82f6;
+  --oh-accent-contrast: #04070d;
+  --oh-accent-soft: rgba(91, 157, 255, 0.14);
+  --oh-accent-border: rgba(91, 157, 255, 0.32);
+
+  /* Semantic */
+  --oh-danger: #f4677f;
+  --oh-success: #4fd08a;
+
+  /* Depth + shape */
+  --oh-radius-sm: 8px;
+  --oh-radius: 12px;
+  --oh-radius-lg: 18px;
+  --oh-radius-xl: 24px;
+  --oh-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --oh-shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --oh-blur: blur(18px);
+}
+
 html,
 body,
 #root {
@@ -9,13 +57,52 @@ body,
 body {
   overflow: hidden;
   overscroll-behavior: none;
-  background: #02050a;
-  color: #f6f6f7;
-  font-family: "Segoe UI", sans-serif;
+  background: var(--oh-bg);
+  color: var(--oh-text);
+  font-family: var(--oh-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Modern, quiet scrollbars across every scroll area in the app. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.14);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.26);
+}
+
+::selection {
+  background: var(--oh-accent-soft);
+  color: var(--oh-text);
+}
+
+/* A single consistent keyboard focus ring — accessible, unobtrusive on click. */
+:focus-visible {
+  outline: 2px solid var(--oh-accent);
+  outline-offset: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .startup-shell {

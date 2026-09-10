@@ -34,17 +34,18 @@ const readAdvisorWidth = () => {
 };
 const baseStyle = {
   position: "fixed",
-  backgroundColor: "rgba(24, 24, 27, 0.9)",
-  backdropFilter: "blur(4px)",
+  backgroundColor: "var(--oh-surface)",
+  backdropFilter: "var(--oh-blur)",
+  WebkitBackdropFilter: "var(--oh-blur)",
   zIndex: 9999,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "white",
-  fontFamily: "sans-serif",
-  borderRadius: "12px",
-  border: "1px solid rgba(255,255,255,0.1)",
-  boxShadow: "0 4px 6px -1px rgba(0,0,0,0.2)",
+  color: "var(--oh-text)",
+  fontFamily: "var(--oh-font-sans)",
+  borderRadius: "var(--oh-radius)",
+  border: "1px solid var(--oh-border)",
+  boxShadow: "var(--oh-shadow)",
 };
 const LazyAdvisorPanel = lazy(() =>
   import("./advisor").then((module) => ({ default: module.AdvisorPanel })),

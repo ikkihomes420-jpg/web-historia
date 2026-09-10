@@ -105,21 +105,22 @@ const TOP_BAR_OFFSET = "0.5rem";
 
 const surfaceStyle = {
   background:
-    "linear-gradient(180deg, rgba(13, 13, 15, 0.97) 0%, rgba(8, 10, 15, 0.94) 100%)",
-  border: "1px solid rgba(255,255,255,0.08)",
-  boxShadow: "0 20px 50px rgba(0,0,0,0.35)",
-  backdropFilter: "blur(18px)",
-  WebkitBackdropFilter: "blur(18px)",
+    "linear-gradient(180deg, rgba(20, 21, 24, 0.94) 0%, rgba(12, 13, 16, 0.92) 100%)",
+  border: "1px solid var(--oh-border)",
+  boxShadow: "var(--oh-shadow-lg)",
+  backdropFilter: "var(--oh-blur)",
+  WebkitBackdropFilter: "var(--oh-blur)",
 };
 
 const actionButtonStyle = {
   alignItems: "center",
   background: "rgba(255,255,255,0.06)",
-  border: "1px solid rgba(255,255,255,0.08)",
+  border: "1px solid var(--oh-border)",
   borderRadius: "999px",
-  color: "rgba(246,246,248,0.92)",
+  color: "var(--oh-text)",
   cursor: "pointer",
   display: "inline-flex",
+  fontFamily: "var(--oh-font-sans)",
   fontSize: "0.82rem",
   fontWeight: 600,
   gap: "0.4rem",
@@ -130,7 +131,7 @@ const actionButtonStyle = {
 };
 
 const fieldLabelStyle = {
-  color: "rgba(255,255,255,0.72)",
+  color: "var(--oh-text-muted)",
   display: "block",
   fontSize: "0.75rem",
   fontWeight: 600,
@@ -141,9 +142,10 @@ const fieldLabelStyle = {
 
 const inputStyle = {
   background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(255,255,255,0.1)",
-  borderRadius: "12px",
-  color: "#f8fafc",
+  border: "1px solid var(--oh-border-strong)",
+  borderRadius: "var(--oh-radius)",
+  color: "var(--oh-text)",
+  fontFamily: "var(--oh-font-sans)",
   fontSize: "0.9rem",
   outline: "none",
   padding: "0.8rem 0.9rem",
