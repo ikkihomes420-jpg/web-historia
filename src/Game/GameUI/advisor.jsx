@@ -6,6 +6,7 @@ import { sendMessage, startChat, loadHistory } from "../AI/main.jsx";
 import { JSON_URLS, readJson, writeJson } from "../../runtime/assets.js";
 import { chatLanguageDiffersFromUi, isRtlLanguage, resolveChatLanguage } from "../../runtime/i18n.js";
 import StatsPane from "./stats.jsx";
+import UsagePane from "./usagePane.jsx";
 
 Chart.register(...registerables);
 
@@ -372,10 +373,11 @@ const AdvisorPanel = ({ isAdvisorOpen, onClose, width, onResize }) => {
                 }} />
             </div>
         )}
-        {/* Header: tabs to flip between the advisor chat and national stats. */}
+        {/* Header: tabs to flip between advisor chat, national stats, and AI usage. */}
         <div style={{ alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.1)", display: "flex", padding: "0 0.75rem 0 0.35rem" }}>
         <TabButton icon="🧭" label="Advisor" active={activeTab === "advisor"} onClick={() => setActiveTab("advisor")} />
         <TabButton icon="📊" label="Stats" active={activeTab === "stats"} onClick={() => setActiveTab("stats")} />
+        <TabButton icon="🧾" label="Usage" active={activeTab === "usage"} onClick={() => setActiveTab("usage")} />
         <div style={{ flex: 1 }} />
         {activeTab === "advisor" && (
             <button
@@ -398,6 +400,11 @@ const AdvisorPanel = ({ isAdvisorOpen, onClose, width, onResize }) => {
         {/* National stats pane — kept mounted so flipping tabs is instant. */}
         <div style={{ display: activeTab === "stats" ? "flex" : "none", flex: 1, flexDirection: "column", minHeight: 0 }}>
         <StatsPane active={isAdvisorOpen && activeTab === "stats"} />
+        </div>
+
+        {/* AI usage & cost pane — polls while active so totals tick up live. */}
+        <div style={{ display: activeTab === "usage" ? "flex" : "none", flex: 1, flexDirection: "column", minHeight: 0 }}>
+        <UsagePane active={isAdvisorOpen && activeTab === "usage"} />
         </div>
 
         <div style={{ display: activeTab === "advisor" ? "flex" : "none", flex: 1, flexDirection: "column", minHeight: 0 }}>

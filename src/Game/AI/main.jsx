@@ -415,7 +415,10 @@ export async function readOpenAIStreamedResponse(response) {
 // for non-tool calls that pass an onChunk callback; tool/JSON tasks keep the
 // buffered path so the whole structured object is still parsed at once. The
 // onChunk call is wrapped so a throwing UI callback can never break the stream.
-async function streamTextSSE(response, extractDelta, onChunk) {
+// onUsage, when given, receives the stream's usage block (OpenRouter sends one
+// on its final chunk when the request asked for usage.include) so streaming
+// calls still show up in the spend HUD.
+async function streamTextSSE(response, extractDelta, onChunk, onUsage = null) {
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
@@ -433,6 +436,10 @@ async function streamTextSSE(response, extractDelta, onChunk) {
                 if (!payload || payload === "[DONE]") continue;
                 let json;
                 try { json = JSON.parse(payload); } catch { continue; }
+                const usage = json?.usage;
+                if (usage && (usage.prompt_tokens != null || usage.completion_tokens != null)) {
+                    try { onUsage?.(usage); } catch { /* usage capture must never break the stream */ }
+                }
                 const delta = extractDelta(json);
                 if (delta) { full += delta; try { onChunk(delta, full); } catch { /* UI callback must not break the stream */ } }
             }
@@ -663,9 +670,15 @@ async function callOpenAIStyleChatCompletions({
     extraBody = null,
     taskKey = "",
     taskClass = "",
+    reasoningEnabled,
 }) {
     let structuredMode = tool ? "tool" : "text";
     let disableToolReasoning = false;
+    // OpenRouter gates reasoning per provider (see callOpenRouter): reasoning_effort
+    // is an OpenAI-family field, and sending it to Anthropic/Gemini models either
+    // forces unwanted thinking or trips a 400 -> fallback retry. Undefined keeps the
+    // global toggle for every other provider path.
+    const useReasoning = reasoningEnabled === undefined ? getReasoningEnabled() : reasoningEnabled;
 
     let attempt = 1;
     while (attempt <= retries) {
@@ -697,7 +710,7 @@ async function callOpenAIStyleChatCompletions({
                 // fell back to non-tool modes, which DID carry it). Providers that
                 // reject the tools+reasoning combination surface the documented
                 // error below and the call retries without it.
-                ...(getReasoningEnabled() && !disableToolReasoning ? { reasoning_effort: "medium" } : {}),
+                ...(useReasoning && !disableToolReasoning ? { reasoning_effort: "medium" } : {}),
                 // Thinking-class local models (Qwen3, Seed-OSS) key on
                 // enable_thinking, not reasoning_effort — textgen/oobabooga
                 // honors it per-request, llama.cpp/LM Studio ignore unknown
@@ -792,7 +805,14 @@ async function callOpenAIStyleChatCompletions({
         // on the actual content-type so a gateway that ignored stream:true (plain
         // JSON) safely falls through to the buffered path below.
         if (onChunk && !tool && String(response.headers.get("content-type") || "").includes("text/event-stream")) {
-            const streamed = await streamTextSSE(response, openaiStreamDelta, onChunk);
+            // Streams carry usage on the final chunk (OpenRouter, with
+            // usage.include) — capture it so chat calls are billed in the HUD
+            // just like buffered ones. Providers that never send it record nothing.
+            let streamUsage = null;
+            const streamed = await streamTextSSE(response, openaiStreamDelta, onChunk, (usage) => { streamUsage = usage; });
+            if (streamUsage) {
+                recordOpenAIUsage({ usage: streamUsage, model }, { provider: providerLabel, model, taskKey, taskClass });
+            }
             if (!streamed) throw new Error(`${providerLabel} response did not contain text.`);
             return streamed;
         }
@@ -1146,6 +1166,13 @@ async function callOpenRouter(systemPrompt, history, opts = {}) {
         classOverride.trim() ? null : opts.taskClass,
     );
 
+    // reasoning_effort is an OpenAI-family parameter. OpenRouter passes it through
+    // to OpenAI models (honoring the global toggle), but Anthropic/Gemini models
+    // have their own thinking controls — sending it to them adds forced thinking on
+    // top of models that already reason (or trips a 400 fallback retry). Gate it so
+    // non-OpenAI models use their own defaults and stay fast.
+    const reasoningEnabled = model.startsWith("openai/") && getReasoningEnabled();
+
     return callOpenAIStyleChatCompletions({
         endpoint: OPENROUTER_ENDPOINT,
         headers,
@@ -1162,6 +1189,7 @@ async function callOpenRouter(systemPrompt, history, opts = {}) {
             "usage": { "include": true },
             ...(models ? { "models": models } : {}),
         },
+        reasoningEnabled,
         ...opts,
     });
 }

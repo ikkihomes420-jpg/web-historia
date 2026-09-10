@@ -55,6 +55,13 @@ import {
 import { dedupeGeneratedEvents } from "../../runtime/eventDedup.js";
 import { difficultyDirective } from "../../runtime/difficulty.js";
 import { MAP_SETTING_KEYS, getMapSetting } from "../../runtime/mapSettings.js";
+
+// AI-task deadline policy. The "Limit AI generation" setting's caps apply when
+// the player opts in; with it OFF, tasks still get a safety bound (never 0, so
+// a hung upstream can't leave "Simulating…" spinning forever) while staying
+// generous enough that a slow frontier model always finishes.
+const aiTaskTimeout = (capMs) =>
+  getMapSetting(MAP_SETTING_KEYS.limitAiGeneration) ? capMs : Math.max(capMs, 240000);
 import { assertCampaignUnchanged } from "../../runtime/campaignGuard.js";
 import { getLibraryState } from "../../runtime/library.js";
 
@@ -442,7 +449,7 @@ const ACTIONS_REFERENCE = "[Actions You Can Take]\nThis is the full menu of leve
 const runJsonTask = async (taskKey, {
   fallback,
   signal,
-  timeoutMs = getMapSetting(MAP_SETTING_KEYS.limitAiGeneration) ? 120000 : 0,
+  timeoutMs = aiTaskTimeout(120000),
   userMessage,
   validatePayload,
   variables,
@@ -755,7 +762,7 @@ const consolidateHistoryBatch = async (bundle, events, chats, actions = []) => {
         actions.length ? `Player orders resolved: ${actions.map((action) => action.title).join("; ")}` : "",
       ].filter(Boolean).join("\n"),
     }),
-    timeoutMs: getMapSetting(MAP_SETTING_KEYS.limitAiGeneration) ? 60000 : 0,
+    timeoutMs: aiTaskTimeout(60000),
     userMessage: "Consolidate the supplied campaign history with the required tool.",
     variables,
   });
@@ -2525,12 +2532,12 @@ export const simulateTimelineJump = async ({ days, mode = "jump", signal } = {})
     fallback: () => fallbackJumpSimulation({ bundle, days: dateStep || 1, mode, targetDate }),
     signal,
     // The jump IS the game — by default generation waits as long as the model
-    // needs (0 disables the deadline in runJsonTask), so the canned fallback is
-    // only reachable through a real error, never a slow local/reasoning model.
-    // The "Limit AI generation" toggle opts back into a 5-minute bound for
-    // players who prefer a guaranteed turn over a guaranteed answer (Cancel
-    // works either way).
-    timeoutMs: getMapSetting(MAP_SETTING_KEYS.limitAiGeneration) ? 300000 : 0,
+    // needs. Fast routed models (Gemini Flash) finish in seconds, and the cap
+    // only fires on a genuinely stuck upstream, which surfaces the timeout
+    // error instead of spinning on "Simulating..." forever. The "Limit AI
+    // generation" toggle tightens the same bound (see aiTaskTimeout). Cancel
+    // works either way.
+    timeoutMs: aiTaskTimeout(300000),
     userMessage:
       mode === "auto"
         ? "Simulate an auto-jump and stop at the next notable or player-relevant event. Return JSON only. " +
@@ -2710,7 +2717,7 @@ export const maybeGeneratePregameHistory = async () => {
   try {
     const variables = await buildTemplateVariables(bundle);
     const { payload } = await runJsonTask("pregameHistory", {
-      timeoutMs: getMapSetting(MAP_SETTING_KEYS.limitAiGeneration) ? 300000 : 0,
+      timeoutMs: aiTaskTimeout(300000),
       userMessage: "Write the pre-game historical timeline as JSON only.",
       validatePayload: (candidate, { finalAttempt } = {}) =>
         validatePregameEvents(candidate, { startDate, strict: !finalAttempt }),
@@ -2808,7 +2815,7 @@ export const maybeSendIdleDiplomacy = async ({ chance = IDLE_DIPLOMACY_CHANCE } 
       + " write, return {\"chat\": null}.",
     ].join("\n");
     const { payload } = await runJsonTask("idleDiplomacy", {
-      timeoutMs: getMapSetting(MAP_SETTING_KEYS.limitAiGeneration) ? 60000 : 0,
+      timeoutMs: aiTaskTimeout(60000),
       userMessage:
         "A quiet moment between rounds. Decide whether any single polity would send the player a short diplomatic note right now."
         + conversationContext

@@ -5,6 +5,10 @@ const MAX_ENTRIES = 500;
 
 let log = null;
 
+// Page-load moment — the boundary for the spend HUD's "this session" totals.
+let sessionStartTs = Date.now();
+export const getSessionStartTs = () => sessionStartTs;
+
 function loadLog() {
     if (log) return log;
     try {
@@ -108,4 +112,15 @@ export function summarizeUsage({ sinceTs = 0 } = {}) {
         cost: costKnown ? cost : null,
         byModel: [...byModel.values()].sort((a, b) => b.calls - a.calls),
     };
+}
+
+/** Newest-first usage entries for the spend HUD's recent-calls list. */
+export function listUsage({ limit = 20 } = {}) {
+    return [...loadLog()].reverse().slice(0, Math.max(1, limit));
+}
+
+/** Wipe the local usage log (spend HUD "clear log" button). */
+export function clearUsage() {
+    log = [];
+    saveLog();
 }

@@ -20,21 +20,21 @@ export const OPENROUTER_SUGGESTED_MODELS = [
         taskClass: "all",
     },
     {
-        id: "anthropic/claude-sonnet-5",
-        label: "Claude Sonnet 5",
-        role: "Strong narrative + tool calling (events, catalysts, diplomacy)",
-        taskClass: "narrative",
-    },
-    {
         id: "google/gemini-3.8-flash",
         label: "Gemini 3.8 Flash",
-        role: "Fast and cheap — jumps, stat sheets, consolidation",
-        taskClass: "utility",
+        role: "Fast and recommended — jumps, actions, stat sheets, consolidation (the default for every task class)",
+        taskClass: "all",
+    },
+    {
+        id: "anthropic/claude-sonnet-5",
+        label: "Claude Sonnet 5",
+        role: "Premium narrative — slower, best prose. Set as the narrative/story override for quality over speed",
+        taskClass: "narrative",
     },
     {
         id: "openai/gpt-5-mini",
         label: "GPT-5 Mini",
-        role: "Balanced structured output (GM commands, actions)",
+        role: "Balanced structured output — fallback for actions/GM when Flash is unavailable",
         taskClass: "structured",
     },
     {
@@ -52,8 +52,14 @@ export const OPENROUTER_SUGGESTED_MODELS = [
  * never break a turn. Player-chosen models always win over routing.
  */
 export const OPENROUTER_TASK_ROUTES = {
-    narrative: ["anthropic/claude-sonnet-5", "google/gemini-3.8-flash", OPENROUTER_AUTO_MODEL],
-    structured: ["openai/gpt-5-mini", "google/gemini-3.8-flash", OPENROUTER_AUTO_MODEL],
+    // Fast-first: Gemini 3.8 Flash handles jumps and actions well and answers in
+    // seconds; the frontier model is the fallback, and the per-class settings
+    // override (modelNarrative / modelStructured) still lets a player choose
+    // premium narrative quality over speed. Reasoning models as the DEFAULT made
+    // every turn feel hung (thinking tokens on huge game-state prompts); the
+    // frontier tier now has to be earned by an explicit pick.
+    narrative: ["google/gemini-3.8-flash", "anthropic/claude-sonnet-5", OPENROUTER_AUTO_MODEL],
+    structured: ["google/gemini-3.8-flash", "openai/gpt-5-mini", OPENROUTER_AUTO_MODEL],
     chat: ["google/gemini-3.8-flash", "deepseek/deepseek-chat-v3.1", OPENROUTER_AUTO_MODEL],
     utility: ["google/gemini-3.8-flash", OPENROUTER_AUTO_MODEL],
 };
