@@ -1,6 +1,7 @@
 /*! Open Historia — portions (briefing dossiers + timeout/fallback hardening) © 2026 Nicholas Krol, AGPL-3.0-or-later (see LICENSE). */
 import { callAI } from "./main.jsx";
 import { taskClassForTask } from "./openrouterModels.js";
+import { readMemory, writeMemory, mergeTurnMemory, buildMemoryContextText } from "./memory.js";
 import { logAi } from "../../runtime/logClient.js";
 import { normalizePromptPack } from "./gameplayPrompts.js";
 import { getGameplayTool, validateGameplayPayload } from "./gameplaySchemas.js";
@@ -457,6 +458,25 @@ const runJsonTask = async (taskKey, {
     systemPrompt = `${systemPrompt}\n\n${difficultyDirective(game.difficulty)}`;
   } catch {
     // Without game data the task still runs at its default temperament.
+  }
+
+  // Campaign memory: long-term dossiers + recorded history, appended at call
+  // time (like the difficulty directive) because prompt packs are frozen per
+  // save — a template edit could never reach existing campaigns.
+  try {
+    const [memory, game, world] = await Promise.all([
+      readMemory(),
+      readGameData().catch(() => null),
+      readWorldState().catch(() => null),
+    ]);
+    const focusCodes = [
+      normalizeString(game?.country),
+      ...Object.keys(world?.polityOverrides ?? {}),
+    ].filter(Boolean);
+    const memoryBlock = buildMemoryContextText(memory, { focusCodes });
+    if (memoryBlock) systemPrompt = `${systemPrompt}\n\n${memoryBlock}`;
+  } catch {
+    // Memory is best-effort: a failed read never blocks a turn.
   }
 
   // Player agency: jumps must never sign the player up for landmark decisions.
@@ -1803,6 +1823,23 @@ const applySimulationResult = async ({
   // rather than written over whichever campaign they opened instead.
   assertCampaignUnchanged(campaignId, activeCampaignId());
 
+  // Record this turn into campaign memory (episodes + dossier touches).
+  // Best-effort: never blocks the turn, never fails the save.
+  let memoryToWrite = null;
+  try {
+    const currentMemory = await readMemory();
+    memoryToWrite = mergeTurnMemory(currentMemory, {
+      events: freshEvents,
+      polityCodes: [
+        normalizeString(baseGame.country),
+        ...Object.keys(baseWorld.polityOverrides ?? {}),
+      ],
+      date: nextGame.gameDate,
+    });
+  } catch (error) {
+    console.warn("[ai] campaign memory update failed; the turn is unaffected.", error);
+  }
+
   await Promise.all([
     writeActionsState(nextActions),
     writeChatsState(chatsToWrite),
@@ -1810,6 +1847,7 @@ const applySimulationResult = async ({
     writeGameData(nextGame),
     writeJson(JSON_URLS.colors, nextColors, { pretty: true }),
     writeWorldState(nextWorld),
+    ...(memoryToWrite ? [writeJson(JSON_URLS.memory, memoryToWrite)] : []),
   ]);
 
   // The turn's new state is now persisted. Web-mode encrypted sync listens for this
