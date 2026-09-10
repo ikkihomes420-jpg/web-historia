@@ -1,5 +1,6 @@
 /*! Open Historia — portions (briefing dossiers + timeout/fallback hardening) © 2026 Nicholas Krol, AGPL-3.0-or-later (see LICENSE). */
 import { callAI } from "./main.jsx";
+import { taskClassForTask } from "./openrouterModels.js";
 import { logAi } from "../../runtime/logClient.js";
 import { normalizePromptPack } from "./gameplayPrompts.js";
 import { getGameplayTool, validateGameplayPayload } from "./gameplaySchemas.js";
@@ -582,6 +583,8 @@ const runJsonTask = async (taskKey, {
         systemPrompt,
       });
       const response = await callAI(systemPrompt, history, {
+        taskKey,
+        taskClass: taskClassForTask(taskKey),
         // No output-token cap. A long/action-heavy turn's JSON must not be truncated
         // mid-response — a cut-off response won't parse, so runJsonTask fell back to
         // canned events that carry NO regionTransfers and NO diplomacy, which is why

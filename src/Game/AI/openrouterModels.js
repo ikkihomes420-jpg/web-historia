@@ -46,16 +46,49 @@ export const OPENROUTER_SUGGESTED_MODELS = [
 ];
 
 /**
- * Task-class -> preferred model chain. Used by per-task routing once the
- * AI layer is split by taskClass; until then callOpenRouter uses the
- * player's selected model (or auto).
+ * Task-class -> preferred model chain. When the player leaves the model
+ * blank ("Auto"), each task class routes to its concrete primary with
+ * fallbacks; "openrouter/auto" is the last resort so a retired id can
+ * never break a turn. Player-chosen models always win over routing.
  */
 export const OPENROUTER_TASK_ROUTES = {
-    narrative: [OPENROUTER_AUTO_MODEL, "anthropic/claude-sonnet-5", "deepseek/deepseek-chat-v3.1"],
-    structured: [OPENROUTER_AUTO_MODEL, "openai/gpt-5-mini", "google/gemini-3.8-flash"],
-    chat: [OPENROUTER_AUTO_MODEL, "google/gemini-3.8-flash", "deepseek/deepseek-chat-v3.1"],
-    utility: [OPENROUTER_AUTO_MODEL, "google/gemini-3.8-flash"],
+    narrative: ["anthropic/claude-sonnet-5", "google/gemini-3.8-flash", OPENROUTER_AUTO_MODEL],
+    structured: ["openai/gpt-5-mini", "google/gemini-3.8-flash", OPENROUTER_AUTO_MODEL],
+    chat: ["google/gemini-3.8-flash", "deepseek/deepseek-chat-v3.1", OPENROUTER_AUTO_MODEL],
+    utility: ["google/gemini-3.8-flash", OPENROUTER_AUTO_MODEL],
 };
+
+/** Which routing class a gameplay task belongs to. */
+export const TASK_CLASS_MAP = {
+    jumpForward: "narrative",
+    autoJumpForward: "narrative",
+    catalystCreation: "narrative",
+    catalystExecutor: "narrative",
+    catalystSummary: "utility",
+    pregameHistory: "narrative",
+    actions: "structured",
+    descriptionToAction: "chat",
+    nextSpeaker: "chat",
+    eventConsolidator: "utility",
+    gameMaster: "structured",
+    countryStatSheet: "utility",
+    idleDiplomacy: "chat",
+};
+
+export function taskClassForTask(taskKey) {
+    return TASK_CLASS_MAP[taskKey] ?? "structured";
+}
+
+/** (model, models[]) for a call: player override > task route > auto. */
+export function resolveRoutedModel(storedModel, taskClass) {
+    const trimmed = (storedModel ?? "").trim();
+    if (trimmed) return { model: trimmed, models: null };
+    const route = OPENROUTER_TASK_ROUTES[taskClass] ?? null;
+    if (route && route[0] !== OPENROUTER_AUTO_MODEL) {
+        return { model: route[0], models: route.slice(1) };
+    }
+    return { model: OPENROUTER_AUTO_MODEL, models: null };
+}
 
 export function suggestedModelsForTask(taskClass = "all") {
     if (!taskClass || taskClass === "all") return OPENROUTER_SUGGESTED_MODELS;

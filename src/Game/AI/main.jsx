@@ -7,6 +7,8 @@ import {
     setProviderField,
 } from "./providerConfig.js";
 import { JSON_URLS, readJson } from "../../runtime/assets.js";
+import { recordOpenAIUsage } from "./usage.js";
+import { resolveRoutedModel } from "./openrouterModels.js";
 import { chatLanguageDirective, languageDirective } from "../../runtime/i18n.js";
 import { difficultyDirective } from "../../runtime/difficulty.js";
 import { normalizePromptPack } from "./gameplayPrompts.js";
@@ -658,6 +660,9 @@ async function callOpenAIStyleChatCompletions({
     allowJsonSchemaFallback = false,
     maxTokens,
     tokenLimitField = "max_tokens",
+    extraBody = null,
+    taskKey = "",
+    taskClass = "",
 }) {
     let structuredMode = tool ? "tool" : "text";
     let disableToolReasoning = false;
@@ -676,6 +681,7 @@ async function callOpenAIStyleChatCompletions({
             headers,
             signal,
             payload: {
+                ...(extraBody ?? {}),
                 model,
                 // Streaming is what makes Cancel PHYSICAL on a local server —
                 // see readOpenAIStreamedResponse. Local endpoints, and the
@@ -798,6 +804,7 @@ async function callOpenAIStyleChatCompletions({
         const data = streamLocalEndpoint && responseType.includes("text/event-stream")
             ? await readOpenAIStreamedResponse(response)
             : await response.json();
+        recordOpenAIUsage(data, { provider: providerLabel, model, taskKey, taskClass });
         const text = extractOpenAIMessageText(data);
 
         if (tool) {
@@ -1125,7 +1132,10 @@ async function callOpenRouter(systemPrompt, history, opts = {}) {
         "X-Title": "Historia Web",
     };
 
-    const model = (settings.model || "").trim() || OPENROUTER_DEFAULT_MODEL;
+    const { model, models } = resolveRoutedModel(
+        settings.model,
+        opts.taskClass,
+    );
 
     return callOpenAIStyleChatCompletions({
         endpoint: OPENROUTER_ENDPOINT,
@@ -1137,6 +1147,12 @@ async function callOpenRouter(systemPrompt, history, opts = {}) {
         customParams: parseCustomParams(settings.customParams, "OpenRouter"),
         allowJsonSchemaFallback: true,
         tokenLimitField: "max_tokens",
+        // Ask OpenRouter for real cost accounting + model fallback chain.
+        // Player-chosen models have no chain; routed/auto ones do.
+        extraBody: {
+            "usage": { "include": true },
+            ...(models ? { "models": models } : {}),
+        },
         ...opts,
     });
 }
